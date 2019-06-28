@@ -7,13 +7,13 @@ DEFINE_BASECLASS(base)
 HUDELEMENT.togglable = true
 
 if CLIENT then
-	local margin = 14
-	local element_margin = 6
+	local margin = 0
+	local element_margin = 0
 	local row_count = 2
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
-		size = {w = 72, h = 72},
+		size = {w = 60, h = 60},
 		minsize = {w = 0, h = 0}
 	}
 
@@ -61,7 +61,7 @@ if CLIENT then
 		self.scale = h / parent_defaults.size.h
 		self.margin = margin * self.scale
 		self.element_margin = element_margin * self.scale
-		self.ply_ind_size = math.Round((h - self.element_margin - self.margin * 2) * 0.5)
+		self.ply_ind_size = math.Round((h - self.element_margin - self.margin * 2) / row_count)
 
 		local players = util.GetFilteredPlayers(function (ply)
 			return ply:IsTerror() or ply:IsDeadTerror()
@@ -78,14 +78,13 @@ if CLIENT then
 		BaseClass.PerformLayout(self)
 	end
 
-	local function GetMSBColorForPlayer(ply)
-		local color = Color(0, 0, 0, 130) -- not yet confirmed
+	local function GetMSBColorForPlayer(ply, basecolor)
+		local color = basecolor -- not yet confirmed
 		if ply:OnceFound() then
 			if ply:RoleKnown() then
-				local roleColor = ply:GetRoleColor()
-				color = Color(roleColor.r, roleColor.g, roleColor.b, 155) -- role known
+				color = ply:GetRoleColor() -- role known
 			else
-				color = Color(215, 215, 215, 155) -- indirect confirmed
+				color = Color(150,150,150,255) -- indirect confirmed
 			end
 		end
 
@@ -115,37 +114,24 @@ if CLIENT then
 		end)
 
 		-- draw bg and shadow
-		self:DrawBg(self.pos.x, self.pos.y, self.size.w, self.size.h, self.basecolor)
-
-		-- draw dark bottom overlay
-		surface.SetDrawColor(0, 0, 0, 90)
-		surface.DrawRect(self.pos.x, self.pos.y, self.size.w, self.size.h)
+		--self:DrawBg(self.pos.x, self.pos.y, self.size.w, self.size.h, self.basecolor)
 
 		-- draw squares
 		local tmp_x, tmp_y = self.pos.x, self.pos.y
 
 		for i, p in ipairs(players) do
-			tmp_x = self.pos.x + self.margin + (self.element_margin + self.ply_ind_size) * math.floor((i - 1) * 0.5)
+			tmp_x = self.pos.x + self.margin + (self.element_margin + self.ply_ind_size) * math.floor((i - 1) / row_count)
 			tmp_y = self.pos.y + self.margin + (self.element_margin + self.ply_ind_size) * ((i - 1) % row_count)
 
-			local ply_color = GetMSBColorForPlayer(p)
+			local ply_color = GetMSBColorForPlayer(p, self.basecolor)
 
-			surface.SetDrawColor(clr(ply_color))
-			surface.DrawRect(tmp_x, tmp_y, self.ply_ind_size, self.ply_ind_size)
+            self:DrawBg(tmp_x, tmp_y, self.ply_ind_size, self.ply_ind_size, ply_color)
 
 			if p:Revived() then
 				util.DrawFilteredTexturedRect(tmp_x +3, tmp_y +3, self.ply_ind_size -6, self.ply_ind_size -6, self.icon_revived, 180, {r=0,g=0,b=0})
 			elseif p:OnceFound() and not p:RoleKnown() then -- draw marker on indirect confirmed bodies
 				util.DrawFilteredTexturedRect(tmp_x +3, tmp_y +3, self.ply_ind_size -6, self.ply_ind_size -6, self.icon_in_conf, 120, {r=0,g=0,b=0})
 			end
-
-			-- draw lines around the element
-			self:DrawLines(tmp_x, tmp_y, self.ply_ind_size, self.ply_ind_size, ply_color.a)
-		end
-
-		-- draw lines around the element
-		if not self:InheritParentBorder() then
-			self:DrawLines(self.pos.x, self.pos.y, self.size.w, self.size.h, self.basecolor.a)
 		end
 	end
 end

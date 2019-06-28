@@ -13,8 +13,8 @@ if CLIENT then
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
-		size = {w = 96, h = 72},
-		minsize = {w = 96, h = 72}
+		size = {w = 96, h = 60},
+		minsize = {w = 96, h = 60}
 	}
 
 	function HUDELEMENT:Initialize()
@@ -63,7 +63,7 @@ if CLIENT then
 		local is_haste = HasteMode() and round_state == ROUND_ACTIVE
 		local is_traitor = not client:IsActive() or client:HasTeam(TEAM_TRAITOR)
 		local endtime = GetGlobalFloat("ttt_round_end", 0) - CurTime()
-		local font = "TimeLeft"
+		local font = "OctagonalBar"
 		local color = self:GetDefaultFontColor(self.basecolor)
 
 		local tmpx = self.pos.x + self.size.w * 0.5

@@ -7,12 +7,12 @@ HUDELEMENT.togglable = true
 DEFINE_BASECLASS(base)
 
 if CLIENT then
-	local pad = 14
+	local pad = 6
 	local element_margin = 6
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
-		size = {w = 72, h = 72},
+		size = {w = 60, h = 60},
 		minsize = {w = 0, h = 0}
 	}
 
@@ -72,9 +72,6 @@ if CLIENT then
 		local team = client:GetTeam()
 		local tm = TEAMS[team]
 
-		-- draw bg and shadow
-		self:DrawBg(x, y, w, h, self.basecolor)
-
 		local iconSize = h - self.pad * 2
 		local icon, c
 		if LocalPlayer():Alive() and LocalPlayer():IsTerror() then
@@ -90,12 +87,7 @@ if CLIENT then
 			c = Color(91,94,99,255)
 		end
 
-		-- draw dark bottom overlay
-		surface.SetDrawColor(0, 0, 0, 90)
-		surface.DrawRect(x, y, h, h)
-
-		surface.SetDrawColor(clr(c))
-		surface.DrawRect(x + self.pad, y + self.pad, iconSize, iconSize)
+		self:DrawBg(x, y, w, h, c)
 
 		if icon then
             util.DrawFilteredTexturedRect(x + self.pad +2, y + self.pad +2, iconSize, iconSize, icon, 255, {r=0,g=0,b=0})

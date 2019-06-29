@@ -29,7 +29,7 @@ function HUD:Initialize()
 	--self:ForceElement("pure_skin_wswitch")
 	self:ForceElement("octagonal_drowning")
 	--self:ForceElement("pure_skin_mstack")
-	--self:ForceElement("pure_skin_sidebar")
+	self:ForceElement("octagonal_sidebar")
     --self:ForceElement("pure_skin_punchometer")
 	--self:ForceElement("pure_skin_target")
 

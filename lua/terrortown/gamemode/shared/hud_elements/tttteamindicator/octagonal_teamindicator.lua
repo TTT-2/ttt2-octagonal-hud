@@ -7,12 +7,14 @@ HUDELEMENT.togglable = true
 DEFINE_BASECLASS(base)
 
 if CLIENT then
-	local pad = 6
-	local element_margin = 6
+	local padding = 6
+	local pad = 10
+
+	local dark_overlay = Color(0, 0, 0, 100)
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
-		size = {w = 60, h = 60},
+		size = {w = 60 + pad, h = 60},
 		minsize = {w = 0, h = 0}
 	}
 
@@ -22,8 +24,6 @@ if CLIENT then
 
 	function HUDELEMENT:Initialize()
 		self.parentInstance = hudelements.GetStored(self.parent)
-		self.pad = pad
-		self.element_margin = element_margin
 		self.scale = 1.0
 		self.basecolor = self:GetHUDBasecolor()
 
@@ -48,15 +48,16 @@ if CLIENT then
 		local parent_pos = self.parentInstance:GetPos()
 		local parent_size = self.parentInstance:GetSize()
 		local parent_defaults = self.parentInstance:GetDefaults()
-		local size = parent_size.h
+		local h = parent_size.h
+		local w = const_defaults.size.w * h/const_defaults.size.h
 
 		self.basecolor = self:GetHUDBasecolor()
-		self.scale = size / parent_defaults.size.h
+		self.scale = h / parent_defaults.size.h
+		self.padding = padding * self.scale
 		self.pad = pad * self.scale
-		self.element_margin = element_margin * self.scale
 
-		self:SetPos(parent_pos.x - size, parent_pos.y)
-		self:SetSize(size, size)
+		self:SetPos(parent_pos.x - w, parent_pos.y)
+		self:SetSize(w, h)
 
 		BaseClass.PerformLayout(self)
 	end
@@ -72,7 +73,7 @@ if CLIENT then
 		local team = client:GetTeam()
 		local tm = TEAMS[team]
 
-		local iconSize = h - self.pad * 2
+		local iconSize = h - self.padding * 2
 		local icon, c
 		if LocalPlayer():Alive() and LocalPlayer():IsTerror() then
 			if (team == TEAM_NONE or not tm or tm.alone) then -- support roles without a team
@@ -88,10 +89,11 @@ if CLIENT then
 		end
 
 		self:DrawBg(x, y, w, h, c)
+		self:DrawBg(x, y, self.pad, h, dark_overlay)
 
 		if icon then
-            util.DrawFilteredTexturedRect(x + self.pad +2, y + self.pad +2, iconSize, iconSize, icon, 255, {r=0,g=0,b=0})
-            util.DrawFilteredTexturedRect(x + self.pad, y + self.pad, iconSize, iconSize, icon)
+            util.DrawFilteredTexturedRect(x + self.pad + self.padding +2, y + self.padding +2, iconSize, iconSize, icon, 255, {r=0,g=0,b=0})
+            util.DrawFilteredTexturedRect(x + self.pad + self.padding, y + self.padding, iconSize, iconSize, icon)
 		end
 	end
 end

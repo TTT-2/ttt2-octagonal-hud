@@ -7,8 +7,8 @@ HUDELEMENT.Base = base
 if CLIENT then
 	local pad = 10
 
-    local drowning_color = Color(36, 154, 198)
-    local dark_overlay = Color(0, 0, 0, 100)
+	local drowning_color = Color(36, 154, 198)
+	local dark_overlay = Color(0, 0, 0, 100)
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},

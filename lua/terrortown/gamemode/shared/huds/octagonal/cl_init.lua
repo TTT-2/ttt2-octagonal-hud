@@ -28,7 +28,7 @@ function HUD:Initialize()
 	self:ForceElement("octagonal_mstack")
 	self:ForceElement("octagonal_sidebar")
     self:ForceElement("octagonal_punchometer")
-	--self:ForceElement("pure_skin_target")
+	self:ForceElement("octagonal_target")
 
 	BaseClass.Initialize(self)
 end

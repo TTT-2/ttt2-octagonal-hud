@@ -1,7 +1,7 @@
 -- item info
 COLOR_DARKGREY = COLOR_DARKGREY or Color(100, 100, 100, 255)
 
-local base = "pure_skin_element"
+local base = "octagonal_element"
 
 DEFINE_BASECLASS(base)
 
@@ -17,9 +17,10 @@ if CLIENT then
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
-		size = {w = 48, h = 48 + pad},
-		minsize = {w = 48, h = 48 + pad}
+		size = {w = 48 + pad, h = 48},
+		minsize = {w = 48 + pad, h = 48}
 	}
+	local size_elem = 48
 
 	function HUDELEMENT:Initialize()
 		self.scale = 1.0
@@ -48,7 +49,8 @@ if CLIENT then
 		self.scale = self:GetHUDScale()
 		self.basecolor = self:GetHUDBasecolor()
         self.padding = padding * self.scale
-        self.pad = pad * self.scale
+		self.pad = pad * self.scale
+		self.size_elem = size_elem * self.scale
 
 		BaseClass.PerformLayout(self)
 	end
@@ -67,7 +69,7 @@ if CLIENT then
 			item.hud_color = self.basecolor
 		end
 
-		curY = curY - size.w
+		curY = curY - self.size_elem
 
 		local factor = 1
 
@@ -82,18 +84,18 @@ if CLIENT then
 		end
 
 		local c = Color(item.hud_color.r, item.hud_color.g, item.hud_color.b, math.Round(factor * 255))
-		self:DrawBg(pos.x, curY, self.pad, size.w, c)
-		self:DrawBg(pos.x, curY, self.pad, size.w, dark_overlay)
-		self:DrawBg(pos.x + self.pad, curY, size.w, size.w, c)
+		self:DrawBg(pos.x, curY, self.pad, self.size_elem, c)
+		self:DrawBg(pos.x, curY, self.pad, self.size_elem, dark_overlay)
+		self:DrawBg(pos.x + self.pad, curY, self.size_elem, self.size_elem, c)
 
-		util.DrawFilteredTexturedRect(pos.x + self.pad, curY, size.w, size.w, item.hud, 175)
+		util.DrawFilteredTexturedRect(pos.x + self.pad, curY, self.size_elem, self.size_elem, item.hud, 175)
 
 		if isfunction(item.DrawInfo) then
 			local info = item:DrawInfo()
 			if info then
 				-- right bottom corner
-				local tx = pos.x + size.w + self.pad
-				local ty = curY +  size.w
+				local tx = pos.x + size.w
+				local ty = curY +  size.h
 				local pad = 5 * self.scale
 
 				surface.SetFont("ItemInfoFontOct")
@@ -143,8 +145,8 @@ if CLIENT then
 
 		num_icons = num_icons + num_status
 
-        local height = math.max(num_icons, 1) * self.size.w + math.max(num_icons -1, 0) * ((num_icons > 1) and self.padding or 0)
-        local startY = basepos.y + 0.5 * self.size.w + 0.5 * height
+        local height = math.max(num_icons, 1) * self.size_elem + math.max(num_icons -1, 0) * ((num_icons > 1) and self.padding or 0)
+        local startY = basepos.y + 0.5 * self.size_elem + 0.5 * height
 		local curY = startY
 
 		-- draw status
@@ -179,7 +181,7 @@ if CLIENT then
 			end
 		end
 
-        self:SetSize(self.size.w, - math.max(height, self.minsize.h)) -- adjust the size
+        self:SetSize(self.size_elem, - math.max(height, self.size_elem)) -- adjust the size
         self:SetPos(basepos.x, startY - height)
 	end
 end

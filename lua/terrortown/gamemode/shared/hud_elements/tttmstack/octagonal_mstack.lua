@@ -1,4 +1,4 @@
-local base = "pure_skin_element"
+local base = "octagonal_element"
 
 DEFINE_BASECLASS(base)
 

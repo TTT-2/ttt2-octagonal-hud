@@ -8,8 +8,6 @@ DEFINE_BASECLASS(base)
 HUDELEMENT.Base = base
 
 if CLIENT then
-	surface.CreateFont("ItemInfoFontOct", {font = "Octin Sports RG", size = 14, weight = 700})
-
 	local padding = 0
 	local pad = 10
 
@@ -98,7 +96,7 @@ if CLIENT then
 				local ty = curY + self.size_elem
 				local pad = 5 * self.scale
 
-				surface.SetFont("ItemInfoFontOct")
+				surface.SetFont("OctagonalItemInfo")
 
 				local infoW, infoH = surface.GetTextSize(info)
 				infoW = infoW * self.scale
@@ -110,7 +108,7 @@ if CLIENT then
 
 				self:DrawBg(bx, by, bw, infoH, item.hud_color)
 
-				self:AdvancedText(info, "ItemInfoFontOct", tx - pad, ty - infoH * 0.5, self:GetDefaultFontColor(item.hud_color), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, false, self.scale)
+				self:AdvancedText(info, "OctagonalItemInfo", tx - pad, ty - infoH * 0.5, self:GetDefaultFontColor(item.hud_color), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, false, self.scale)
 			end
 		end
 

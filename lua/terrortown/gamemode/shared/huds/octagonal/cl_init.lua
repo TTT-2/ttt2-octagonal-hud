@@ -1,8 +1,8 @@
 local surface = surface
 
 -- Fonts
-surface.CreateFont("OctagonalMSTACKImageMsg", {font = "Octin Sports RG", size = 21, weight = 1000})
-surface.CreateFont("OctagonalMSTACKMsg", {font = "Octin Sports RG", size = 15, weight = 900})
+surface.CreateFont("OctagonalMSTACKImageMsg", {font = "Octin Sports RG", size = 20, weight = 700})
+surface.CreateFont("OctagonalMSTACKMsg", {font = "Octin Sports RG", size = 14, weight = 700})
 surface.CreateFont("OctagonalRole", {font = "Octin Sports RG", size = 30, weight = 700})
 surface.CreateFont("OctagonalBar", {font = "Octin Sports RG", size = 21, weight = 1000})
 surface.CreateFont("OctagonalWep", {font = "Octin Sports RG", size = 21, weight = 1000})
@@ -25,9 +25,9 @@ function HUD:Initialize()
 	self:ForceElement("octagonal_miniscoreboard")
 	self:ForceElement("octagonal_wswitch")
 	self:ForceElement("octagonal_drowning")
-	--self:ForceElement("pure_skin_mstack")
+	self:ForceElement("octagonal_mstack")
 	self:ForceElement("octagonal_sidebar")
-    --self:ForceElement("pure_skin_punchometer")
+    self:ForceElement("octagonal_punchometer")
 	--self:ForceElement("pure_skin_target")
 
 	BaseClass.Initialize(self)

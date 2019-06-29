@@ -8,7 +8,6 @@ if CLIENT then
 	local GetLang = LANG.GetUnsafeLanguageTable
 
     local pad = 10 -- padding
-    local lpw = 44 -- left panel width
     local sri_text_width_padding = 8 -- secondary role information padding (needed for size calculations)
     local firstrow = 50
     local row = 40
@@ -26,7 +25,6 @@ if CLIENT then
 		self.scale = 1.0
 		self.basecolor = self:GetHUDBasecolor()
 		self.pad = pad
-		self.lpw = lpw
 		self.sri_text_width_padding = sri_text_width_padding
 		--self.secondaryRoleInformationFunc = nil
 
@@ -96,8 +94,8 @@ if CLIENT then
 		local x2, y2, w2, h2 = self.pos.x, self.pos.y, self.size.w, self.size.h
 
 		if not calive then
-			--y2 = y2 + h2 - self.lpw
-			--h2 = self.lpw
+			y2 = y2 + h2 - self.firstrow
+			h2 = self.firstrow
 		end
 
 		-- draw bg and shadow
@@ -131,7 +129,8 @@ if CLIENT then
 					util.DrawFilteredTexturedRect(x2 + self.pad*2, y2 + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, icon)
 				end
 			elseif IsValid(tgt) and tgt:IsPlayer() then
-				util.DrawFilteredTexturedRect(x2 + 4 + self.pad, y2 + 4, self.row - 8, self.row - 8, watching_icon)
+				util.DrawFilteredTexturedRect(x2 + self.pad*2 +2, y2 + 0.5*(self.firstrow-self.row+8) +2, self.row - 8, self.row - 8, watching_icon, 255, {r=0,g=0,b=0})
+				util.DrawFilteredTexturedRect(x2 + self.pad*2, y2 + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, watching_icon)
 			end
 
 			-- draw role string name
@@ -170,7 +169,7 @@ if CLIENT then
 			role_scale_multiplier = math.Clamp(role_scale_multiplier, 0.55, 0.85) * self.scale
 
 			local tx = 0
-			if cactive then
+			if cactive or (IsValid(tgt) and tgt:IsPlayer() and not cactive) then
 				tx = nx + self.row + self.pad, ry
 			else
 				tx = nx + self.pad
@@ -195,9 +194,6 @@ if CLIENT then
 					local sri_xoffset = w2 - sri_width
 
 					local nx2 = x2 + sri_xoffset
-
-					--surface.SetDrawColor(clr(secInfoTbl.color))
-					--surface.DrawRect(nx2, ny, sri_width, nh)
 					
 					local mixColor = Color((secInfoTbl.color.r + c.r) * 0.5, (secInfoTbl.color.g + c.g) * 0.5, (secInfoTbl.color.b + c.b) * 0.5, (secInfoTbl.color.a + c.a) * 0.5)
 					self:DrawBg(nx2 - self.pad, y2, self.pad, self.firstrow, mixColor)
@@ -214,7 +210,7 @@ if CLIENT then
 			-- health bar
 			local health = math.max(0, client:Health())
 
-            		self:DrawBg(nx - self.pad, ty, self.pad, bh, Color(197, 47, 48))
+			self:DrawBg(nx - self.pad, ty, self.pad, bh, Color(197, 47, 48))
 			self:DrawBar(nx, ty, bw, bh, Color(197, 47, 48), health / client:GetMaxHealth(), self.scale, "HEALTH: " .. health, self.pad)
 
 			-- ammo bar
@@ -239,8 +235,7 @@ if CLIENT then
                 		self:DrawBg(nx - self.pad, ty, self.pad, sbh, Color(36, 154, 198))
 				self:DrawBar(nx, ty, bw, sbh, Color(36, 154, 198), client.sprintProgress, self.scale, "")
 			end
-
-			self:DrawBg(x2, y2, self.pad, h2, dark_overlay)
 		end
+		self:DrawBg(x2, y2, self.pad, h2, dark_overlay)
 	end
 end

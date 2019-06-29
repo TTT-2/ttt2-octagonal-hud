@@ -16,7 +16,7 @@ DEFINE_BASECLASS(base)
 
 HUD.Base = base
 
-HUD.previewImage = Material("vgui/ttt/huds/pure_skin/preview.png")
+HUD.previewImage = Material("vgui/ttt/huds/octagonal/preview.png")
 
 function HUD:Initialize()
 	self:ForceElement("octagonal_playerinfo")

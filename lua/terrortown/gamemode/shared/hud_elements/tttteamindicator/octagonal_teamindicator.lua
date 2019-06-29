@@ -14,7 +14,7 @@ if CLIENT then
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
-		size = {w = 60 + pad, h = 60},
+		size = {w = 60 + 2 * pad, h = 60},
 		minsize = {w = 0, h = 0}
 	}
 
@@ -26,6 +26,8 @@ if CLIENT then
 		self.parentInstance = hudelements.GetStored(self.parent)
 		self.scale = 1.0
 		self.basecolor = self:GetHUDBasecolor()
+		self.padding = padding * self.scale
+		self.pad = pad * self.scale
 
 		BaseClass.Initialize(self)
 	end
@@ -91,9 +93,14 @@ if CLIENT then
 		self:DrawBg(x, y, w, h, c)
 		self:DrawBg(x, y, self.pad, h, dark_overlay)
 
+		--draw padding bar
+		local mixColor = Color(self.basecolor.r * 0.8  + c.r * 0.2, self.basecolor.g * 0.8 + c.g * 0.2, self.basecolor.b * 0.8 + c.b * 0.2, self.basecolor.a * 0.8 + c.a * 0.2)
+		self:DrawBg(x + w - self.pad, y, self.pad, h, mixColor)
+
 		if icon then
-            util.DrawFilteredTexturedRect(x + self.pad + self.padding +2, y + self.padding +2, iconSize, iconSize, icon, 255, {r=0,g=0,b=0})
-            util.DrawFilteredTexturedRect(x + self.pad + self.padding, y + self.padding, iconSize, iconSize, icon)
+			--drawing the icon as shadow
+			util.DrawFilteredTexturedRect(x + self.pad + self.padding +2, y + self.padding +2, iconSize, iconSize, icon, 255, {r=0,g=0,b=0})
+			util.DrawFilteredTexturedRect(x + self.pad + self.padding, y + self.padding, iconSize, iconSize, icon)
 		end
 	end
 end

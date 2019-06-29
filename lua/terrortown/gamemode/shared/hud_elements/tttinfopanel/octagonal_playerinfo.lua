@@ -161,20 +161,22 @@ if CLIENT then
 					surface.SetFont("OctagonalBar")
 
 					local sri_text_width = surface.GetTextSize(string.upper(secInfoTbl.text)) * self.scale
+					local sri_width = sri_text_width + self.pad * 2
 
-					role_scale_multiplier = (self.size.w - sri_text_width - self.row - 2 * self.pad - 3 * self.sri_text_width_padding) / role_text_width
+					role_scale_multiplier = (self.size.w - self.row - 4 * self.pad - sri_width) / role_text_width
 				end
 			end
 
 			role_scale_multiplier = math.Clamp(role_scale_multiplier, 0.55, 0.85) * self.scale
 
-		local tx = 0
-		if cactive then
-			tx = nx + self.row + self.pad, ry
-		else
-			tx = nx + self.pad
-		end
-			self:AdvancedText(string.upper(text), "OctagonalRole", tx, ry, self:GetDefaultFontColor(c), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, true, self.scale)
+			local tx = 0
+			if cactive then
+				tx = nx + self.row + self.pad, ry
+			else
+				tx = nx + self.pad
+			end
+
+			self:AdvancedText(string.upper(text), "OctagonalRole", tx, ry, self:GetDefaultFontColor(c), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, role_scale_multiplier)
 		end
 
 		-- player informations
@@ -189,21 +191,18 @@ if CLIENT then
 
 					local sri_text_caps = string.upper(secInfoTbl.text)
 					local sri_text_width = surface.GetTextSize(sri_text_caps) * self.scale
-					local sri_margin_top_bottom = 8 * self.scale
-					local sri_width = sri_text_width + self.sri_text_width_padding * 2
-					local sri_xoffset = w2 - sri_width - self.pad
+					local sri_width = sri_text_width + self.pad * 2
+					local sri_xoffset = w2 - sri_width
 
 					local nx2 = x2 + sri_xoffset
-					local ny = y2 + sri_margin_top_bottom
-					local nh = self.lpw - sri_margin_top_bottom * 2
 
-					surface.SetDrawColor(clr(secInfoTbl.color))
-					surface.DrawRect(nx2, ny, sri_width, nh)
+					--surface.SetDrawColor(clr(secInfoTbl.color))
+					--surface.DrawRect(nx2, ny, sri_width, nh)
+					
+					local mixColor = Color((secInfoTbl.color.r + c.r) * 0.5, (secInfoTbl.color.g + c.g) * 0.5, (secInfoTbl.color.b + c.b) * 0.5, (secInfoTbl.color.a + c.a) * 0.5)
+					self:DrawBg(nx2 - self.pad, y2, self.pad, self.firstrow, mixColor)
 
-					self:AdvancedText(sri_text_caps, "OctagonalBar", nx2 + sri_width * 0.5, ry, self:GetDefaultFontColor(secInfoTbl.color), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, true, self.scale)
-
-					-- draw lines around the element
-					self:DrawLines(nx2, ny, sri_width, nh, secInfoTbl.color.a)
+					self:DrawBar(nx2, y2, sri_width, self.firstrow, secInfoTbl.color, 1, self.scale, sri_text_caps, self.pad)
 				end
 			end
 

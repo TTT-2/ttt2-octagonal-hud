@@ -30,7 +30,6 @@ function HUD:Initialize()
 	self:ForceElement("octagonal_drowning")
 	--self:ForceElement("pure_skin_mstack")
 	--self:ForceElement("pure_skin_sidebar")
-	--self:ForceElement("pure_skin_miniscoreboard")
     --self:ForceElement("pure_skin_punchometer")
 	--self:ForceElement("pure_skin_target")
 

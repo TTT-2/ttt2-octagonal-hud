@@ -29,7 +29,7 @@ if CLIENT then
 
 		-- draw text
 		if t then
-			self:AdvancedText(t, "OctagonalBar", x + tp, y + 0.5*h, self:GetDefaultFontColor(c), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, true, s)
+			self:AdvancedText(t, "OctagonalBar", x + tp, y + 0.5*h, self:GetDefaultFontColor(c), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, s)
 		end
 	end
 

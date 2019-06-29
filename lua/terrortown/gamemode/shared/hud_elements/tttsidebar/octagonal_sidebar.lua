@@ -95,7 +95,7 @@ if CLIENT then
 			if info then
 				-- right bottom corner
 				local tx = pos.x + size.w
-				local ty = curY +  size.h
+				local ty = curY + self.size_elem
 				local pad = 5 * self.scale
 
 				surface.SetFont("ItemInfoFontOct")

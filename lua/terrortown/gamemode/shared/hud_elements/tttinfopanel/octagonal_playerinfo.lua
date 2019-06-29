@@ -8,6 +8,8 @@ if CLIENT then
 	local GetLang = LANG.GetUnsafeLanguageTable
 
     local pad = 10 -- padding
+    local lpw = 44 -- left panel width
+    local sri_text_width_padding = 8 -- secondary role information padding (needed for size calculations)
     local firstrow = 50
     local row = 40
     local gap = 5
@@ -48,10 +50,10 @@ if CLIENT then
 
 		self.basecolor = self:GetHUDBasecolor()
 		self.scale = math.min(self.size.w / defaults.minsize.w, self.size.h / defaults.minsize.h)
-        self.pad = pad * self.scale
-        self.row = row * self.scale
-        self.firstrow = firstrow * self.scale
-		--self.sri_text_width_padding = sri_text_width_padding * self.scale
+		self.pad = pad * self.scale
+		self.row = row * self.scale
+		self.firstrow = firstrow * self.scale
+		self.sri_text_width_padding = sri_text_width_padding * self.scale
 
 		BaseClass.PerformLayout(self)
 	end
@@ -166,12 +168,12 @@ if CLIENT then
 
 			role_scale_multiplier = math.Clamp(role_scale_multiplier, 0.55, 0.85) * self.scale
 
-            local tx = 0
-            if cactive then
-                tx = nx + self.row + self.pad, ry
-            else
-                tx = nx + self.pad
-            end
+		local tx = 0
+		if cactive then
+			tx = nx + self.row + self.pad, ry
+		else
+			tx = nx + self.pad
+		end
 			self:AdvancedText(string.upper(text), "OctagonalRole", tx, ry, self:GetDefaultFontColor(c), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, true, self.scale)
 		end
 
@@ -183,7 +185,7 @@ if CLIENT then
 				local secInfoTbl = self.secondaryRoleInformationFunc()
 
 				if secInfoTbl and secInfoTbl.color and secInfoTbl.text then
-					surface.SetFont("PureSkinBar")
+					surface.SetFont("OctagonalBar")
 
 					local sri_text_caps = string.upper(secInfoTbl.text)
 					local sri_text_width = surface.GetTextSize(sri_text_caps) * self.scale
@@ -198,7 +200,7 @@ if CLIENT then
 					surface.SetDrawColor(clr(secInfoTbl.color))
 					surface.DrawRect(nx2, ny, sri_width, nh)
 
-					self:AdvancedText(sri_text_caps, "PureSkinBar", nx2 + sri_width * 0.5, ry, self:GetDefaultFontColor(secInfoTbl.color), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, true, self.scale)
+					self:AdvancedText(sri_text_caps, "OctagonalBar", nx2 + sri_width * 0.5, ry, self:GetDefaultFontColor(secInfoTbl.color), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, true, self.scale)
 
 					-- draw lines around the element
 					self:DrawLines(nx2, ny, sri_width, nh, secInfoTbl.color.a)
@@ -213,7 +215,7 @@ if CLIENT then
 			-- health bar
 			local health = math.max(0, client:Health())
 
-            self:DrawBg(nx - self.pad, ty, self.pad, bh, Color(197, 47, 48))
+            		self:DrawBg(nx - self.pad, ty, self.pad, bh, Color(197, 47, 48))
 			self:DrawBar(nx, ty, bw, bh, Color(197, 47, 48), health / client:GetMaxHealth(), self.scale, "HEALTH: " .. health, self.pad)
 
 			-- ammo bar
@@ -226,7 +228,7 @@ if CLIENT then
 				if ammo_clip ~= -1 then
 					local text = string.format("%i + %02i", ammo_clip, ammo_inv)
 
-                    self:DrawBg(nx - self.pad, ty, self.pad, bh, Color(206, 155, 1))
+					self:DrawBg(nx - self.pad, ty, self.pad, bh, Color(206, 155, 1))
 					self:DrawBar(nx, ty, bw, bh, Color(206, 155, 1), ammo_clip / ammo_max, self.scale, text, self.pad)
 				end
 			end
@@ -234,8 +236,8 @@ if CLIENT then
 			-- sprint bar
 			ty = ty + bh
 
-            if GetGlobalBool("ttt2_sprint_enabled", true) then
-                self:DrawBg(nx - self.pad, ty, self.pad, sbh, Color(36, 154, 198))
+            		if GetGlobalBool("ttt2_sprint_enabled", true) then
+                		self:DrawBg(nx - self.pad, ty, self.pad, sbh, Color(36, 154, 198))
 				self:DrawBar(nx, ty, bw, sbh, Color(36, 154, 198), client.sprintProgress, self.scale, "")
 			end
 

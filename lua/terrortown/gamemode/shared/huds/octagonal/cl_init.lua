@@ -13,13 +13,12 @@ surface.CreateFont("OctagonalWepNum", {font = "Octin Sports RG", size = 21, weig
 
 local base = "scalable_hud"
 
-local defaultColor = Color(35, 45, 55)
-
 DEFINE_BASECLASS(base)
 
 HUD.Base = base
 
 HUD.previewImage = Material("vgui/ttt/huds/pure_skin/preview.png")
+HUD.defaultcolor = Color(35, 45, 55)
 
 function HUD:Initialize()
 	self:ForceElement("octagonal_playerinfo")
@@ -34,15 +33,6 @@ function HUD:Initialize()
 	--self:ForceElement("pure_skin_target")
 
 	BaseClass.Initialize(self)
-end
-
-function HUD:Reset()
-	self.basecolor = defaultColor
-
-	local basebase = baseclass.Get(BaseClass.Base)
-	basebase.Reset(self)
-
-	self:ApplyScale(self.scale)
 end
 
 -- Voice overriding

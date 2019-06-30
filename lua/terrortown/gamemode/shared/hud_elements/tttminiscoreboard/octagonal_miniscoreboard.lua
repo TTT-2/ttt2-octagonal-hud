@@ -10,8 +10,9 @@ if CLIENT then
 	local margin = 4
 	local element_margin = 4
 	local row_count = 2
-	local pad = 10
+	local pad = 0
 	local bgcolor = Color(100, 100, 100, 255)
+	local alivecolor = Color(0, 0, 0, 255)
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
@@ -74,7 +75,7 @@ if CLIENT then
 		self.curPlayerCount = #players
 		self.column_count = math.Round(#players * 0.5)
 
-		local w = self.element_margin * (self.column_count - 1) + self.ply_ind_size * self.column_count + 2 * self.margin + self.pad
+		local w = self.element_margin * (self.column_count - 1) + self.ply_ind_size * self.column_count + self.margin + self.pad
 
 		self:SetPos(parent_pos.x + parent_size.w, parent_pos.y)
 		self:SetSize(w, h)
@@ -118,20 +119,16 @@ if CLIENT then
 		end)
 
 		--draw bg
-		self:DrawBg(self.pos.x, self.pos.y, self.size.w, self.size.h, bgcolor)
-
-		--draw padding element
-		local mixColor = Color(self.basecolor.r * 0.5  + bgcolor.r * 0.5, self.basecolor.g * 0.5 + bgcolor.g * 0.5, self.basecolor.b * 0.5 + bgcolor.b * 0.5, self.basecolor.a * 0.5 + bgcolor.a * 0.5)
-		self:DrawBg(self.pos.x, self.pos.y, self.pad, self.size.h, mixColor)
+		self:DrawBg(self.pos.x, self.pos.y, self.size.w, self.size.h, self.basecolor)
 
 		-- draw squares
 		local tmp_x, tmp_y = self.pos.x + self.pad, self.pos.y
 
 		for i, p in ipairs(players) do
-			tmp_x = self.pos.x + self.pad + self.margin + (self.element_margin + self.ply_ind_size) * math.floor((i - 1) / row_count)
+			tmp_x = self.pos.x + self.pad + (self.element_margin + self.ply_ind_size) * math.floor((i - 1) / row_count)
 			tmp_y = self.pos.y + self.margin + (self.element_margin + self.ply_ind_size) * ((i - 1) % row_count)
 
-			local ply_color = GetMSBColorForPlayer(p, self.basecolor)
+			local ply_color = GetMSBColorForPlayer(p, bgcolor)
 
             		self:DrawBg(tmp_x, tmp_y, self.ply_ind_size, self.ply_ind_size, ply_color)
 

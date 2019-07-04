@@ -16,7 +16,9 @@ if CLIENT then
 
 	local element_height = 28
 	local margin = 5
-	local lpw = 18 -- left panel width
+	local lpw = 22 -- left panel width
+	local iw = 4 --interpolation width
+	local pad = 10
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
@@ -34,6 +36,8 @@ if CLIENT then
 		self.element_height = element_height
 		self.margin = margin
 		self.lpw = lpw
+		self.pad = pad
+		self.iw = iw
 
 		WSWITCH:UpdateWeaponCache()
 
@@ -58,6 +62,8 @@ if CLIENT then
 		self.element_height = element_height * self.scale
 		self.margin = margin * self.scale
 		self.lpw = lpw * self.scale
+		self.pad = pad * self.scale
+		self.iw = iw * self.scale
 
 		BaseClass.PerformLayout(self)
 	end
@@ -65,17 +71,21 @@ if CLIENT then
 	function HUDELEMENT:DrawBarBg(x, y, w, h, active)
 		local ply = LocalPlayer()
 
-        local c_main = self.basecolor
-        local c_tip = (active and ply:GetRoleColor() or ply:GetRoleDkColor()) or Color(100, 100, 100)
+		local c_main = self.basecolor
+		local c_tip = (active and ply:GetRoleColor() or ply:GetRoleDkColor()) or Color(100, 100, 100)
 		if not active then
 			c_main = Color(c_main.r, c_main.g, c_main.b, 175)
 			c_tip = Color(c_tip.r, c_tip.g, c_tip.b, 175)
 		end
 
-        self.drawer:DrawBg(x + self.lpw, y, w - self.lpw, h, c_main)
+		self.drawer:DrawBg(x + self.lpw + self.iw, y, w - self.lpw - self.iw, h, c_main)
 
-        -- Draw the colour tip
-        self.drawer:DrawBg(x, y, self.lpw, h, c_tip)
+		-- Draw the interpolation
+		local interpolColor = Color(c_main.r * 0.5 + c_tip.r * 0.5, c_main.g * 0.5 + c_tip.g * 0.5, c_main.b * 0.5 + c_tip.b * 0.5, c_main.a * 0.5 + c_tip.a * 0.5)
+		self.drawer:DrawBg(x + self.lpw, y, self.iw, h, interpolColor)
+
+		-- Draw the colour tip
+		self.drawer:DrawBg(x, y, self.lpw, h, c_tip)
 
 		return c_tip
 	end
@@ -108,13 +118,13 @@ if CLIENT then
 		self.drawer:AdvancedText(MakeKindValid(wep.Kind), "OctagonalWepNum", x + self.lpw * 0.5, y + self.element_height * 0.5, number_color, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, false, self.scale)
 
 		-- Name
-		self.drawer:AdvancedText(string.upper(name), "OctagonalWep", x + 10 + self.element_height, y + self.element_height * 0.5, text_color, nil, TEXT_ALIGN_CENTER, false, self.scale)
+		self.drawer:AdvancedText(string.upper(name), "OctagonalWep", x + self.lpw + self.iw + self.pad, y + self.element_height * 0.5, text_color, nil, TEXT_ALIGN_CENTER, false, self.scale)
 
 		if ammo then
 			local col = (wep:Clip1() == 0 and wep:Ammo1() == 0) and empty_color or text_color
 
 			-- Ammo
-			self.drawer:AdvancedText(tostring(ammo), "OctagonalWep", x + self.size.w - self.margin * 3, y + self.element_height * 0.5, col, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, false, self.scale)
+			self.drawer:AdvancedText(tostring(ammo), "OctagonalWep", x + self.size.w - self.pad, y + self.element_height * 0.5, col, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, false, self.scale)
 		end
 
 		return true

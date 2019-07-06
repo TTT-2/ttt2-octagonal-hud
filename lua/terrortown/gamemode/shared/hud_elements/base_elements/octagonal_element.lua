@@ -33,7 +33,7 @@ if CLIENT then
 
 		-- draw text
 		if t then
-			self:AdvancedText(t, "OctagonalBar", tx, y + 0.5*h, self:GetDefaultFontColor(c), textalign, TEXT_ALIGN_CENTER, false, s)
+			draw.AdvancedText(t, "OctagonalBar", tx, y + 0.5*h, self:GetDefaultFontColor(c), textalign, TEXT_ALIGN_CENTER, false, s)
 		end
 	end
 

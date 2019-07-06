@@ -175,7 +175,7 @@ if CLIENT then
 				tx = nx + self.pad
 			end
 
-			self:AdvancedText(string.upper(text), "OctagonalRole", tx, ry, self:GetDefaultFontColor(c), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, role_scale_multiplier)
+			draw.AdvancedText(string.upper(text), "OctagonalRole", tx, ry, self:GetDefaultFontColor(c), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, role_scale_multiplier)
 		end
 
 		-- player informations

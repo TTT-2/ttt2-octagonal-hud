@@ -84,6 +84,6 @@ if CLIENT then -- CLIENT
         end
 
         local amnt_print = tostring(MARKER_DATA:GetMarkedAmount()) .. ' / ' .. tostring(MARKER_DATA:AmountToWin())
-        self:AdvancedText(amnt_print, 'OctagonalBar', x + self.pad +  46 * self.scale, y + 9 * self.scale, color, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, false, self.scale)
+        draw.AdvancedText(amnt_print, 'OctagonalBar', x + self.pad +  46 * self.scale, y + 9 * self.scale, color, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, false, self.scale)
     end
 end

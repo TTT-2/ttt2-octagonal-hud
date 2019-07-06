@@ -108,7 +108,7 @@ if CLIENT then
 
 				self:DrawBg(bx, by, bw, infoH, item.hud_color)
 
-				self:AdvancedText(info, "OctagonalItemInfo", tx - pad, ty - infoH * 0.5, self:GetDefaultFontColor(item.hud_color), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, false, self.scale)
+				draw.AdvancedText(info, "OctagonalItemInfo", tx - pad, ty - infoH * 0.5, self:GetDefaultFontColor(item.hud_color), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, false, self.scale)
 			end
 		end
 

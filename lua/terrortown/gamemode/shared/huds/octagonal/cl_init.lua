@@ -1,13 +1,13 @@
 local surface = surface
 
 -- Fonts
-surface.CreateFont("OctagonalMSTACKImageMsg", {font = "Octin Sports RG", size = 20, weight = 700})
-surface.CreateFont("OctagonalMSTACKMsg", {font = "Octin Sports RG", size = 14, weight = 700})
-surface.CreateFont("OctagonalRole", {font = "Octin Sports RG", size = 30, weight = 700})
-surface.CreateFont("OctagonalBar", {font = "Octin Sports RG", size = 21, weight = 1000})
-surface.CreateFont("OctagonalWep", {font = "Octin Sports RG", size = 21, weight = 1000})
-surface.CreateFont("OctagonalWepNum", {font = "Octin Sports RG", size = 21, weight = 700})
-surface.CreateFont("OctagonalItemInfo", {font = "Octin Sports RG", size = 14, weight = 700})
+surface.CreateAdvancedFont("OctagonalMSTACKImageMsg", {font = "Octin Sports RG", size = 20, weight = 700})
+surface.CreateAdvancedFont("OctagonalMSTACKMsg", {font = "Octin Sports RG", size = 14, weight = 700})
+surface.CreateAdvancedFont("OctagonalRole", {font = "Octin Sports RG", size = 30, weight = 700})
+surface.CreateAdvancedFont("OctagonalBar", {font = "Octin Sports RG", size = 21, weight = 1000})
+surface.CreateAdvancedFont("OctagonalWep", {font = "Octin Sports RG", size = 21, weight = 1000})
+surface.CreateAdvancedFont("OctagonalWepNum", {font = "Octin Sports RG", size = 21, weight = 700})
+surface.CreateAdvancedFont("OctagonalItemInfo", {font = "Octin Sports RG", size = 14, weight = 700})
 
 local base = "scalable_hud"
 

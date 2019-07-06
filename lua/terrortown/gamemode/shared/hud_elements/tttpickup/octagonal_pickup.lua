@@ -27,7 +27,7 @@ if CLIENT then
 				[WEAPON_CLASS] = Material("vgui/ttt/pickup/icon_class.png")
 	}
 
-	HUDELEMENT.icon_item = Material("vgui/ttt/hud_icon_special.png")
+	HUDELEMENT.icon_item = Material("vgui/ttt/pickup/icon_special.png")
 	HUDELEMENT.icon_ammo = Material("vgui/ttt/pickup/icon_ammo.png")
 
 	local const_defaults = {
@@ -109,11 +109,11 @@ if CLIENT then
 		--draw name text
 		local fontColor = self.drawer:GetDefaultFontColor(self.basecolor)
 		fontColor = Color(fontColor.r, fontColor.g, fontColor.b, alpha)
-		self.drawer:AdvancedText(item.name, font, x + self.tipsize + self.iw + self.pad, y + h * 0.5, fontColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
+		draw.AdvancedText(item.name, font, x + self.tipsize + self.iw + self.pad, y + h * 0.5, fontColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
 
 		--draw amount text
 		if item.amount then
-			self.drawer:AdvancedText(item.amount, font, x + w - self.pad, y + h * 0.5, fontColor, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, false, self.scale)
+			draw.AdvancedText(item.amount, font, x + w - self.pad, y + h * 0.5, fontColor, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, false, self.scale)
 		end
 	end
 

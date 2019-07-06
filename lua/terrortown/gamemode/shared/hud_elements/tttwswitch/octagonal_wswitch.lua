@@ -115,16 +115,16 @@ if CLIENT then
 		end
 
 		-- Slot
-		self.drawer:AdvancedText(MakeKindValid(wep.Kind), "OctagonalWepNum", x + self.lpw * 0.5, y + self.element_height * 0.5, number_color, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, false, self.scale)
+		draw.AdvancedText(MakeKindValid(wep.Kind), "OctagonalWepNum", x + self.lpw * 0.5, y + self.element_height * 0.5, number_color, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, false, self.scale)
 
 		-- Name
-		self.drawer:AdvancedText(string.upper(name), "OctagonalWep", x + self.lpw + self.iw + self.pad, y + self.element_height * 0.5, text_color, nil, TEXT_ALIGN_CENTER, false, self.scale)
+		draw.AdvancedText(string.upper(name), "OctagonalWep", x + self.lpw + self.iw + self.pad, y + self.element_height * 0.5, text_color, nil, TEXT_ALIGN_CENTER, false, self.scale)
 
 		if ammo then
 			local col = (wep:Clip1() == 0 and wep:Ammo1() == 0) and empty_color or text_color
 
 			-- Ammo
-			self.drawer:AdvancedText(tostring(ammo), "OctagonalWep", x + self.size.w - self.pad, y + self.element_height * 0.5, col, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, false, self.scale)
+			draw.AdvancedText(tostring(ammo), "OctagonalWep", x + self.size.w - self.pad, y + self.element_height * 0.5, col, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, false, self.scale)
 		end
 
 		return true

@@ -53,7 +53,7 @@ if CLIENT then -- CLIENT
 		local w, h = size.w, size.h
 
 		self:DrawBg(x, y, w, h, self.basecolor)
-		self:AdvancedText(name, "OctagonalBar", x + self.iconSize + self.pad, y + h * 0.5, self:GetDefaultFontColor(self.basecolor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
+		draw.AdvancedText(name, "OctagonalBar", x + self.iconSize + self.pad, y + h * 0.5, self:GetDefaultFontColor(self.basecolor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
 
 		local nSize = self.iconSize - 8
 

@@ -63,9 +63,9 @@ if CLIENT then
 
 		self.basecolor = self:GetHUDBasecolor()
 		self.scale = h / parent_defaults.size.h
-		self.margin = margin * self.scale
-		self.element_margin = element_margin * self.scale
-		self.pad = pad * self.scale
+		self.margin = math.Round(margin * self.scale)
+		self.element_margin = math.Round(element_margin * self.scale)
+		self.pad = math.Round(pad * self.scale)
 		self.ply_ind_size = math.Round((h - self.element_margin - self.margin * 2) / row_count)
 
 		local players = util.GetFilteredPlayers(function (ply)

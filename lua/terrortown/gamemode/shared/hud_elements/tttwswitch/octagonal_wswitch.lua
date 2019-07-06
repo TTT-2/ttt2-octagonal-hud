@@ -59,11 +59,11 @@ if CLIENT then
 	function HUDELEMENT:PerformLayout()
 		self.scale = self:GetHUDScale()
 		self.basecolor = self:GetHUDBasecolor()
-		self.element_height = element_height * self.scale
-		self.margin = margin * self.scale
-		self.lpw = lpw * self.scale
-		self.pad = pad * self.scale
-		self.iw = iw * self.scale
+		self.element_height = math.Round(element_height * self.scale)
+		self.margin = math.Round(margin * self.scale)
+		self.lpw = math.Round(lpw * self.scale)
+		self.pad = math.Round(pad * self.scale)
+		self.iw = math.Round(iw * self.scale)
 
 		BaseClass.PerformLayout(self)
 	end

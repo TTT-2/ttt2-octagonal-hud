@@ -30,6 +30,7 @@ function HUD:Initialize()
 	self:ForceElement("octagonal_sidebar")
     	self:ForceElement("octagonal_punchometer")
 	self:ForceElement("octagonal_target")
+	self:ForceElement("octagonal_pickup")
 
 	BaseClass.Initialize(self)
 end

@@ -102,7 +102,8 @@ if CLIENT then
 		surface.SetDrawColor(tipColor.r, tipColor.g, tipColor.b, alpha)
 		surface.DrawRect(x, y, self.tipsize, h)
 
-		--draw icon
+		--draw icon (drawing the icon as shadow first)
+		util.DrawFilteredTexturedRect(x + 1, y + 1, h, h, icon, alpha, {r=0,g=0,b=0})
 		util.DrawFilteredTexturedRect(x, y, h, h, icon, alpha)
 
 		--draw name text

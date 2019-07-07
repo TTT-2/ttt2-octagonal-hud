@@ -228,8 +228,8 @@ if CLIENT then
 			ty = ty + bh
 
 			if GetGlobalBool("ttt2_sprint_enabled", true) then
-				self:DrawBg(nx - self.pad, ty, self.pad, sbh, Color(36, 154, 198))
-				self:DrawBar(nx, ty, bw, sbh, Color(36, 154, 198), client.sprintProgress, self.scale, "")
+				self:DrawBg(nx - self.pad, ty, self.pad, sbh, self.extraBarColor)
+				self:DrawBar(nx, ty, bw, sbh, self.extraBarColor, client.sprintProgress, self.scale, "")
 			end
 		end
 		self:DrawBg(x2, y2, self.pad, h2, self.darkOverlayColor)

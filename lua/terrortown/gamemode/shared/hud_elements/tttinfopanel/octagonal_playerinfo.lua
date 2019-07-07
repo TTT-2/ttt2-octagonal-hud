@@ -14,8 +14,8 @@ if CLIENT then
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
-		size = {w = 365, h = 150},
-		minsize = {w = 225, h = 150}
+		size = {w = 365, h = 145},
+		minsize = {w = 225, h = 145}
 	}
 
 	function HUDELEMENT:Initialize()

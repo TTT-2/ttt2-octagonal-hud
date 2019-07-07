@@ -56,6 +56,8 @@ if CLIENT then -- CLIENT
     end
 
     function HUDELEMENT:ShouldDraw()
+        if not MARKER_DATA then return false end
+        
         local c = LocalPlayer()
         return (GetRoundState() == ROUND_ACTIVE and LocalPlayer():GetSubRole() == ROLE_MARKER and c:Alive() and c:IsTerror()) or HUDEditor.IsEditing
 	end

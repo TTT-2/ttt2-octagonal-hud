@@ -57,6 +57,8 @@ if CLIENT then -- CLIENT
     end
 
     function HUDELEMENT:ShouldDraw()
+        if not ASPECTATOR then return false end
+
         local c = LocalPlayer()
         local tgt = c:GetObserverTarget()
 

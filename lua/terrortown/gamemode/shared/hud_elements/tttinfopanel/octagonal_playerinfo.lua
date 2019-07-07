@@ -7,24 +7,20 @@ HUDELEMENT.Base = base
 if CLIENT then
 	local GetLang = LANG.GetUnsafeLanguageTable
 
-    local pad = 10 -- padding
     local sri_text_width_padding = 8 -- secondary role information padding (needed for size calculations)
     local firstrow = 50
     local row = 40
     local gap = 5
 
-    local dark_overlay = Color(0, 0, 0, 100)
-
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
-		size = {w = 365, h = 140 + gap},
-		minsize = {w = 225, h = 140 + gap}
+		size = {w = 365, h = 150},
+		minsize = {w = 225, h = 150}
 	}
 
 	function HUDELEMENT:Initialize()
 		self.scale = 1.0
 		self.basecolor = self:GetHUDBasecolor()
-		self.pad = pad
 		self.sri_text_width_padding = sri_text_width_padding
 		--self.secondaryRoleInformationFunc = nil
 
@@ -48,10 +44,10 @@ if CLIENT then
 
 		self.basecolor = self:GetHUDBasecolor()
 		self.scale = math.min(self.size.w / defaults.minsize.w, self.size.h / defaults.minsize.h)
-		self.pad = pad * self.scale
-		self.row = row * self.scale
-		self.firstrow = firstrow * self.scale
-		self.sri_text_width_padding = sri_text_width_padding * self.scale
+		self.row = math.Round(row * self.scale, 0)
+		self.gap = math.Round(gap * self.scale, 0)
+		self.firstrow = math.Round(firstrow * self.scale, 0)
+		self.sri_text_width_padding = math.Round(sri_text_width_padding * self.scale, 0)
 
 		BaseClass.PerformLayout(self)
 	end
@@ -114,7 +110,7 @@ if CLIENT then
 		self:DrawBg(x2 + self.pad, y2, w2 - self.pad, self.firstrow, c)
 
 		local ry = y2 + self.firstrow * 0.5
-		local ty = y2 + self.firstrow + gap -- new y
+		local ty = y2 + self.firstrow + self.gap -- new y
 		local nx = x2 + self.pad -- new x
 
 		-- draw role icon
@@ -210,8 +206,8 @@ if CLIENT then
 			-- health bar
 			local health = math.max(0, client:Health())
 
-			self:DrawBg(nx - self.pad, ty, self.pad, bh, Color(197, 47, 48))
-			self:DrawBar(nx, ty, bw, bh, Color(197, 47, 48), health / client:GetMaxHealth(), self.scale, "HEALTH: " .. health, self.pad)
+			self:DrawBg(nx - self.pad, ty, self.pad, bh, self.healthBarColor)
+			self:DrawBar(nx, ty, bw, bh, self.healthBarColor, health / client:GetMaxHealth(), self.scale, "HEALTH: " .. health, self.pad)
 
 			-- ammo bar
 			ty = ty + bh
@@ -223,19 +219,19 @@ if CLIENT then
 				if ammo_clip ~= -1 then
 					local text = string.format("%i + %02i", ammo_clip, ammo_inv)
 
-					self:DrawBg(nx - self.pad, ty, self.pad, bh, Color(206, 155, 1))
-					self:DrawBar(nx, ty, bw, bh, Color(206, 155, 1), ammo_clip / ammo_max, self.scale, text, self.pad)
+					self:DrawBg(nx - self.pad, ty, self.pad, bh, self.ammoBarColor)
+					self:DrawBar(nx, ty, bw, bh, self.ammoBarColor, ammo_clip / ammo_max, self.scale, text, self.pad)
 				end
 			end
 
 			-- sprint bar
 			ty = ty + bh
 
-            		if GetGlobalBool("ttt2_sprint_enabled", true) then
-                		self:DrawBg(nx - self.pad, ty, self.pad, sbh, Color(36, 154, 198))
+			if GetGlobalBool("ttt2_sprint_enabled", true) then
+				self:DrawBg(nx - self.pad, ty, self.pad, sbh, Color(36, 154, 198))
 				self:DrawBar(nx, ty, bw, sbh, Color(36, 154, 198), client.sprintProgress, self.scale, "")
 			end
 		end
-		self:DrawBg(x2, y2, self.pad, h2, dark_overlay)
+		self:DrawBg(x2, y2, self.pad, h2, self.darkOverlayColor)
 	end
 end

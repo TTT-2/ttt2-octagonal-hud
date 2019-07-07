@@ -22,7 +22,6 @@ if CLIENT then
 	local top_margin = 6
 	local title_bottom_margin = 8
     local padding = 6
-    local pad = 10
 	local leftImagePad = 10
 	local image_size = 64
 
@@ -32,8 +31,6 @@ if CLIENT then
 	local fadein = 0.1
 	local fadeout = 0.6
 	local movespeed = 2
-
-    local dark_overlay = Color(0, 0, 0, 100)
 
 	local msgfont = "OctagonalMSTACKMsg"
 	local imagedmsgfont = "OctagonalMSTACKImageMsg"
@@ -93,7 +90,6 @@ if CLIENT then
 		self.top_margin = top_margin * self.scale
 		self.title_bottom_margin = title_bottom_margin * self.scale
         self.padding = padding * self.scale
-        self.pad = pad * self.scale
 		self.leftImagePad = leftImagePad * self.scale
 		self.image_size = image_size * self.scale
 		self.imageMinHeight = self.image_size + 2 * self.padding
@@ -153,7 +149,7 @@ if CLIENT then
 		-- Background box
         self:DrawBg(self.pos.x + self.pad, pos_y, self.size.w - self.pad, item.height, Color(item.bg.r, item.bg.g, item.bg.b, item.bg.a * 0.9))
         self:DrawBg(self.pos.x, pos_y, self.pad, item.height, item.bg)
-        self:DrawBg(self.pos.x, pos_y, self.pad, item.height, Color(dark_overlay.r, dark_overlay.g, dark_overlay.b, item.bg.a * dark_overlay.a/255))
+        self:DrawBg(self.pos.x, pos_y, self.pad, item.height, Color(self.darkOverlayColor.r, self.darkOverlayColor.g, self.darkOverlayColor.b, item.bg.a * self.darkOverlayColor.a/255))
 
 		-- Text
 		local tx = self.pos.x + self.padding + self.leftPad
@@ -178,7 +174,7 @@ if CLIENT then
 		-- Background box
         self:DrawBg(self.pos.x + self.pad, pos_y, self.size.w - self.pad, item.height, Color(item.bg.r, item.bg.g, item.bg.b, item.bg.a * 0.9))
         self:DrawBg(self.pos.x, pos_y, self.pad, item.height, item.bg)
-        self:DrawBg(self.pos.x, pos_y, self.pad, item.height, Color(dark_overlay.r, dark_overlay.g, dark_overlay.b, item.bg.a * dark_overlay.a/255))
+        self:DrawBg(self.pos.x, pos_y, self.pad, item.height, Color(self.darkOverlayColor.r, self.darkOverlayColor.g, self.darkOverlayColor.b, item.bg.a * self.darkOverlayColor.a/255))
 
 		-- Text
 		local tx = self.pos.x + self.image_size + self.padding + self.leftImagePad + self.pad

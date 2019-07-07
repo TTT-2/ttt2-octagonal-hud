@@ -8,13 +8,12 @@ DEFINE_BASECLASS(base)
 
 if CLIENT then
 	local padding = 6
-	local pad = 10
 
 	local dark_overlay = Color(0, 0, 0, 100)
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
-		size = {w = 60 + 2 * pad, h = 60},
+		size = {w = 80, h = 60},
 		minsize = {w = 0, h = 0}
 	}
 
@@ -26,8 +25,7 @@ if CLIENT then
 		self.parentInstance = hudelements.GetStored(self.parent)
 		self.scale = 1.0
 		self.basecolor = self:GetHUDBasecolor()
-		self.padding = padding * self.scale
-		self.pad = pad * self.scale
+		self.padding = math.Round(padding * self.scale, 0)
 
 		BaseClass.Initialize(self)
 	end
@@ -55,8 +53,7 @@ if CLIENT then
 
 		self.basecolor = self:GetHUDBasecolor()
 		self.scale = h / parent_defaults.size.h
-		self.padding = padding * self.scale
-		self.pad = pad * self.scale
+		self.padding = math.Round(padding * self.scale, 0)
 
 		self:SetPos(parent_pos.x - w, parent_pos.y)
 		self:SetSize(w, h)

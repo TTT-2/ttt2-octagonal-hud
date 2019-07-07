@@ -13,8 +13,7 @@ DEFINE_BASECLASS(base)
 if CLIENT then
 	local draw_col = Color(205, 155, 0, 255)
 
-	local pad = 7
-	local margin= 14
+	local margin = 14
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
@@ -26,7 +25,6 @@ if CLIENT then
 		self.scale = 1.0
 		self.basecolor = self:GetHUDBasecolor()
 
-		self.pad = pad
 		self.margin = margin
 
 		BaseClass.Initialize(self)
@@ -78,7 +76,6 @@ if CLIENT then
 
 		self.scale = self:GetHUDScale()
 		self.basecolor = self:GetHUDBasecolor()
-		self.pad = pad * self.scale
 		self.margin = margin * self.scale
 
 		BaseClass.PerformLayout(self)

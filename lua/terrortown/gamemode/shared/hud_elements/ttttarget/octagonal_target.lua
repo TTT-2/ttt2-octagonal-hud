@@ -5,7 +5,6 @@ DEFINE_BASECLASS(base)
 HUDELEMENT.Base = base
 
 if CLIENT then -- CLIENT
-	local pad = 14 -- padding
 	local iconSize = 64
 
 	HUDELEMENT.icon = Material("vgui/ttt/target_icon")
@@ -19,7 +18,6 @@ if CLIENT then -- CLIENT
 	function HUDELEMENT:Initialize()
 		self.scale = 1.0
 		self.basecolor = self:GetHUDBasecolor()
-		self.pad = pad
 		self.iconSize = iconSize
 
 		BaseClass.Initialize(self)
@@ -41,8 +39,6 @@ if CLIENT then -- CLIENT
 		self.scale = self:GetHUDScale()
 		self.basecolor = self:GetHUDBasecolor()
 		self.iconSize = iconSize * self.scale
-		self.pad = pad * self.scale
-
 		BaseClass.PerformLayout(self)
 	end
 
@@ -53,11 +49,12 @@ if CLIENT then -- CLIENT
 		local w, h = size.w, size.h
 
 		self:DrawBg(x, y, w, h, self.basecolor)
-		draw.AdvancedText(name, "OctagonalBar", x + self.iconSize + self.pad, y + h * 0.5, self:GetDefaultFontColor(self.basecolor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
+		self:DrawBg(x, y, self.pad, h, self.darkOverlayColor)
+		draw.AdvancedText(name, "OctagonalBar", x + self.iconSize + 2 * self.pad, y + h * 0.5, self:GetDefaultFontColor(self.basecolor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
 
 		local nSize = self.iconSize - 8
 
-		util.DrawFilteredTexturedRect(x, y + 2 - (nSize - h), nSize, nSize, self.icon)
+		util.DrawFilteredTexturedRect(x + self.pad, y + 2 - (nSize - h), nSize, nSize, self.icon)
 	end
 
 	function HUDELEMENT:ShouldDraw()

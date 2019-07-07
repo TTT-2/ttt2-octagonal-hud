@@ -9,7 +9,7 @@ HUDELEMENT.togglable = true
 if CLIENT then
 	local GetLang = LANG.GetUnsafeLanguageTable
 
-	local pad = 14
+	local pad_roundinfo = 14
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
@@ -20,7 +20,7 @@ if CLIENT then
 	function HUDELEMENT:Initialize()
 		self.scale = 1.0
 		self.basecolor = self:GetHUDBasecolor()
-		self.pad = pad
+		self.pad_roundinfo = pad_roundinfo
 
 		self.disabledUnlessForced = true
 
@@ -44,7 +44,7 @@ if CLIENT then
 
 		self.scale = math.min(self.size.w / defaults.minsize.w, self.size.h / defaults.minsize.h)
 		self.basecolor = self:GetHUDBasecolor()
-		self.pad = pad * self.scale
+		self.pad_roundinfo = pad_roundinfo * self.scale
 
 		BaseClass.PerformLayout(self)
 	end
@@ -113,7 +113,7 @@ if CLIENT then
 		draw.AdvancedText(text, font, rx, ry, color, TEXT_ALIGN_CENTER, vert_align_clock, false, self.scale)
 
 		if is_haste then
-			draw.AdvancedText(L.hastemode, "OctagonalMSTACKMsg", tmpx, self.pos.y + self.pad, self:GetDefaultFontColor(self.basecolor), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, false, self.scale)
+			draw.AdvancedText(L.hastemode, "OctagonalMSTACKMsg", tmpx, self.pos.y + self.pad_roundinfo, self:GetDefaultFontColor(self.basecolor), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, false, self.scale)
 		end
 	end
 end

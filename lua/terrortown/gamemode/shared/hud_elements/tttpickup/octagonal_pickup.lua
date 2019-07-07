@@ -17,7 +17,7 @@ if CLIENT then
 	local tipsize = element_height
 	local iw = 4
 	local margin = 5
-	local pad = 8
+	local pad_piuckup = 8
 
 	HUDELEMENT.SlotIcons = {[WEAPON_HEAVY] = Material("vgui/ttt/pickup/icon_heavy.png"),
 				[WEAPON_PISTOL] = Material("vgui/ttt/pickup/icon_pistol.png"),
@@ -45,7 +45,7 @@ if CLIENT then
 		self.basecolor = self:GetHUDBasecolor()
 		self.element_height = element_height * self.scale
 		self.margin = margin * self.scale
-		self.pad = pad * self.scale
+		self.pad_piuckup = pad_piuckup * self.scale
 		self.tipsize = tipsize * self.scale
 		self.iw = iw * self.scale
 
@@ -67,7 +67,7 @@ if CLIENT then
 		self.basecolor = self:GetHUDBasecolor()
 		self.element_height = math.Round(element_height * self.scale)
 		self.margin = math.Round(margin * self.scale)
-		self.pad = math.Round(pad * self.scale)
+		self.pad_piuckup = math.Round(pad_piuckup * self.scale)
 		self.tipsize = math.Round(tipsize * self.scale)
 		self.iw = math.Round(iw * self.scale)
 
@@ -109,11 +109,11 @@ if CLIENT then
 		--draw name text
 		local fontColor = self.drawer:GetDefaultFontColor(self.basecolor)
 		fontColor = Color(fontColor.r, fontColor.g, fontColor.b, alpha)
-		draw.AdvancedText(item.name, font, x + self.tipsize + self.iw + self.pad, y + h * 0.5, fontColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
+		draw.AdvancedText(item.name, font, x + self.tipsize + self.iw + self.pad_piuckup, y + h * 0.5, fontColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
 
 		--draw amount text
 		if item.amount then
-			draw.AdvancedText(item.amount, font, x + w - self.pad, y + h * 0.5, fontColor, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, false, self.scale)
+			draw.AdvancedText(item.amount, font, x + w - self.pad_piuckup, y + h * 0.5, fontColor, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, false, self.scale)
 		end
 	end
 

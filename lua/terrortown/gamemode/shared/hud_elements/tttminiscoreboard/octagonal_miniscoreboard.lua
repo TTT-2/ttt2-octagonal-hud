@@ -10,7 +10,6 @@ if CLIENT then
 	local margin = 4
 	local element_margin = 4
 	local row_count = 2
-	local pad = 0
 	local bgcolor = Color(100, 100, 100, 255)
 	local alivecolor = Color(0, 0, 0, 255)
 
@@ -30,7 +29,6 @@ if CLIENT then
 	function HUDELEMENT:Initialize()
 		self.margin =  margin
 		self.element_margin = element_margin
-		self.pad = pad
 		self.column_count = 0
 		self.parentInstance = hudelements.GetStored(self.parent)
 		self.curPlayerCount = 0
@@ -65,7 +63,6 @@ if CLIENT then
 		self.scale = h / parent_defaults.size.h
 		self.margin = math.Round(margin * self.scale)
 		self.element_margin = math.Round(element_margin * self.scale)
-		self.pad = math.Round(pad * self.scale)
 		self.ply_ind_size = math.Round((h - self.element_margin - self.margin * 2) / row_count)
 
 		local players = util.GetFilteredPlayers(function (ply)
@@ -75,7 +72,7 @@ if CLIENT then
 		self.curPlayerCount = #players
 		self.column_count = math.Round(#players * 0.5)
 
-		local w = self.element_margin * (self.column_count - 1) + self.ply_ind_size * self.column_count + self.margin + self.pad
+		local w = self.element_margin * (self.column_count - 1) + self.ply_ind_size * self.column_count + self.margin
 
 		self:SetPos(parent_pos.x + parent_size.w, parent_pos.y)
 		self:SetSize(w, h)
@@ -122,10 +119,10 @@ if CLIENT then
 		self:DrawBg(self.pos.x, self.pos.y, self.size.w, self.size.h, self.basecolor)
 
 		-- draw squares
-		local tmp_x, tmp_y = self.pos.x + self.pad, self.pos.y
+		local tmp_x, tmp_y = self.pos.x, self.pos.y
 
 		for i, p in ipairs(players) do
-			tmp_x = self.pos.x + self.pad + (self.element_margin + self.ply_ind_size) * math.floor((i - 1) / row_count)
+			tmp_x = self.pos.x + (self.element_margin + self.ply_ind_size) * math.floor((i - 1) / row_count)
 			tmp_y = self.pos.y + self.margin + (self.element_margin + self.ply_ind_size) * ((i - 1) % row_count)
 
 			local ply_color = GetMSBColorForPlayer(p, bgcolor)

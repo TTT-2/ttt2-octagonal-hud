@@ -9,14 +9,11 @@ HUDELEMENT.Base = base
 
 if CLIENT then
 	local padding = 0
-	local pad = 10
-
-	local dark_overlay = Color(0, 0, 0, 100)
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
-		size = {w = 48 + pad, h = 48},
-		minsize = {w = 48 + pad, h = 48}
+		size = {w = 58, h = 48},
+		minsize = {w = 58, h = 48}
 	}
 	local size_elem = 48
 
@@ -47,7 +44,6 @@ if CLIENT then
 		self.scale = self:GetHUDScale()
 		self.basecolor = self:GetHUDBasecolor()
         self.padding = padding * self.scale
-		self.pad = pad * self.scale
 		self.size_elem = size_elem * self.scale
 
 		BaseClass.PerformLayout(self)
@@ -83,7 +79,7 @@ if CLIENT then
 
 		local c = Color(item.hud_color.r, item.hud_color.g, item.hud_color.b, math.Round(factor * 255))
 		self:DrawBg(pos.x, curY, self.pad, self.size_elem, c)
-		self:DrawBg(pos.x, curY, self.pad, self.size_elem, dark_overlay)
+		self:DrawBg(pos.x, curY, self.pad, self.size_elem, self.darkOverlayColor)
 		self:DrawBg(pos.x + self.pad, curY, self.size_elem, self.size_elem, c)
 
 		util.DrawFilteredTexturedRect(pos.x + self.pad, curY, self.size_elem, self.size_elem, item.hud, 175)

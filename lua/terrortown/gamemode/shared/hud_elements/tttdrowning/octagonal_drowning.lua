@@ -5,11 +5,6 @@ DEFINE_BASECLASS(base)
 HUDELEMENT.Base = base
 
 if CLIENT then
-	local pad = 10
-
-	local drowning_color = Color(36, 154, 198)
-	local dark_overlay = Color(0, 0, 0, 100)
-
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
 		size = {w = 321, h = 40},
@@ -17,7 +12,6 @@ if CLIENT then
     }
 
 	function HUDELEMENT:Initialize()
-		self.pad = pad
 		self.basecolor = self:GetHUDBasecolor()
 
 		BaseClass.Initialize(self)
@@ -45,7 +39,6 @@ if CLIENT then
 		local scale = self:GetHUDScale()
 
 		self.basecolor = self:GetHUDBasecolor()
-		self.pad = pad * scale
 
 		BaseClass.PerformLayout(self)
 	end
@@ -59,9 +52,9 @@ if CLIENT then
 
 		-- draw bg and shadow
         self:DrawBg(x, y, w, h, self.basecolor)
-        self:DrawBg(x, y, self.pad, h, drowning_color)
-        self:DrawBg(x, y, self.pad, h, dark_overlay)
+        self:DrawBg(x, y, self.pad, h, self.extraBarColor)
+        self:DrawBg(x, y, self.pad, h, self.darkOverlayColor)
 
-		self:DrawBar(x + self.pad, y, w - self.pad, h, drowning_color, HUDEditor.IsEditing and 1 or (client.drowningProgress or 1), 1, LANG.GetTranslation("ttt2_octagonal_drowning"))
+		self:DrawBar(x + self.pad, y, w - self.pad, h, self.extraBarColor, HUDEditor.IsEditing and 1 or (client.drowningProgress or 1), 1, LANG.GetTranslation("ttt2_octagonal_drowning"))
 	end
 end

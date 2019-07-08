@@ -33,7 +33,7 @@ if CLIENT then
 
 	function HUDELEMENT:GetDefaults()
 		const_defaults["basepos"] = {
-			x = 10,
+			x = self.pad,
 			y = ScrH() * 0.5
 		}
 

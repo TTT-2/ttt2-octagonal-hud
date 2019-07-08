@@ -116,7 +116,7 @@ if CLIENT then -- CLIENT
         local by = y + ((show_role == true) and (self.firstrow + self.gap) or 0)
 
         local bw = w - self.pad -- bar width
-        local bh = self.row --  bar height
+        local bh = self.row -- bar height
 
         -- health bar
         local health = math.max(0, ASPECTATOR:GetPlayer(tgt):Health())
@@ -131,9 +131,9 @@ if CLIENT then -- CLIENT
         if clip ~= -1 then
             local text = string.format("%i + %02i", clip, ammo)
 
-            self:DrawBar(bx, by + bh, bw, bh, self.AmmoBarColor, clip / clip_max, self.scale, text)
+            self:DrawBar(bx, by + bh, bw, bh, self.ammoBarColor, clip / clip_max, self.scale, text)
 
-            self:DrawBg(x, by, self.pad, bh, self.AmmoBarColor)
+            self:DrawBg(x, by + bh, self.pad, bh, self.ammoBarColor)
         end
 
         self:DrawBg(x, y, self.pad, h, self.darkOverlayColor)

@@ -5,7 +5,7 @@ DEFINE_BASECLASS(base)
 HUDELEMENT.Base = base
 
 if CLIENT then -- CLIENT
-	local iconSize = 64
+	local iconSize = 40
 
 	HUDELEMENT.icon = Material("vgui/ttt/target_icon")
 
@@ -50,11 +50,11 @@ if CLIENT then -- CLIENT
 
 		self:DrawBg(x, y, w, h, self.basecolor)
 		self:DrawBg(x, y, self.pad, h, self.darkOverlayColor)
-		draw.AdvancedText(name, "OctagonalBar", x + self.iconSize + 2 * self.pad, y + h * 0.5, self:GetDefaultFontColor(self.basecolor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
+		draw.AdvancedText(name, "OctagonalBar", x + self.iconSize + 2 * self.pad + 4, y + h * 0.5, self:GetDefaultFontColor(self.basecolor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
 
-		local nSize = self.iconSize - 8
+		local nSize = self.iconSize - 6
 
-		util.DrawFilteredTexturedRect(x + self.pad, y + 2 - (nSize - h), nSize, nSize, self.icon)
+		util.DrawFilteredTexturedRect(x + self.pad + 4, y - (nSize - h) * 0.5, nSize, nSize, self.icon)
 	end
 
 	function HUDELEMENT:ShouldDraw()

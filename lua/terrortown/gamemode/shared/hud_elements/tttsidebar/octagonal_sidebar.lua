@@ -63,6 +63,9 @@ if CLIENT then
 			item.hud_color = self.basecolor
 		end
 
+		local fontColor = self:GetDefaultFontColor(item.hud_color)
+		local iconAlpha = fontColor.r > 60 and 175 or 250 
+
 		curY = curY - self.size_elem
 
 		local factor = 1
@@ -82,7 +85,7 @@ if CLIENT then
 		self:DrawBg(pos.x, curY, self.pad, self.size_elem, self.darkOverlayColor)
 		self:DrawBg(pos.x + self.pad, curY, self.size_elem, self.size_elem, c)
 
-		util.DrawFilteredTexturedRect(pos.x + self.pad, curY, self.size_elem, self.size_elem, item.hud, 175)
+		util.DrawFilteredTexturedRect(pos.x + self.pad, curY, self.size_elem, self.size_elem, item.hud, iconAlpha, fontColor)
 
 		if isfunction(item.DrawInfo) then
 			local info = item:DrawInfo()
@@ -104,7 +107,7 @@ if CLIENT then
 
 				self:DrawBg(bx, by, bw, infoH, item.hud_color)
 
-				draw.AdvancedText(info, "OctagonalItemInfo", tx - pad, ty - infoH * 0.5, self:GetDefaultFontColor(item.hud_color), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, false, self.scale)
+				draw.AdvancedText(info, "OctagonalItemInfo", tx - pad, ty - infoH * 0.5, fontColor, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, false, self.scale)
 			end
 		end
 

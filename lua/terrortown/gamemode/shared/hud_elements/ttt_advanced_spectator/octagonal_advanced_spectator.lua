@@ -57,17 +57,14 @@ if CLIENT then -- CLIENT
     end
 
     function HUDELEMENT:ShouldDraw()
-        if not ASPECTATOR then return false end
-
         local c = LocalPlayer()
         local tgt = c:GetObserverTarget()
-
-        if GetGlobalBool('ttt_aspectator_admin_only', false) and not c:IsAdmin() then return false end
         
-        local tgt_is_valid = IsValid(tgt) and tgt:IsPlayer()
-        local tgt_is_synced_user = tgt and tgt['UserID'] and ASPECTATOR.player[tgt:UserID()]
+        if GetGlobalBool('ttt_aspectator_admin_only', false) and not c:IsAdmin() then return false end
 
-        return (tgt_is_valid and tgt_is_synced_user and GAMEMODE.round_state == ROUND_ACTIVE) or HUDEditor.IsEditing
+        local tgt_is_valid = IsValid(tgt) and tgt:IsPlayer()
+
+        return (tgt_is_valid and GAMEMODE.round_state == ROUND_ACTIVE) or HUDEditor.IsEditing
 	end
     -- parameter overwrites end
 
@@ -91,13 +88,13 @@ if CLIENT then -- CLIENT
         self:DrawBg(x, y, w, h, self.basecolor)
 
         if show_role then
-            local text = LANG.GetTranslation(ASPECTATOR:GetRole(tgt).name)
+            local text = LANG.GetTranslation(tgt:AS_GetRole().name)
             local tx = x + self.firstrow + self.pad
             local ty = y + self.firstrow * 0.5
 
-            self:DrawBg(x, y, w, self.firstrow, ASPECTATOR:GetRoleColor(tgt))
+            self:DrawBg(x, y, w, self.firstrow, tgt:AS_GetRoleColor())
 
-            local icon = Material("vgui/ttt/dynamic/roles/icon_" .. ASPECTATOR:GetRole(tgt).abbr)
+            local icon = Material("vgui/ttt/dynamic/roles/icon_" .. tgt:AS_GetRole().abbr)
             if icon then
                 util.DrawFilteredTexturedRect(x + self.pad*2 +2, y + 0.5*(self.firstrow-self.row+8) +2, self.row - 8, self.row - 8, icon, 255, {r=0,g=0,b=0})
                 util.DrawFilteredTexturedRect(x + self.pad*2, y + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, icon)
@@ -121,14 +118,14 @@ if CLIENT then -- CLIENT
         local bh = self.row -- bar height
 
         -- health bar
-        local health = math.max(0, ASPECTATOR:GetPlayer(tgt):Health())
+        local health = math.max(0, tgt:Health())
 
-        self:DrawBar(bx, by, bw, bh, self.healthBarColor, health / math.max(0, ASPECTATOR:GetPlayer(tgt):GetMaxHealth()), self.scale, "HEALTH: " .. health)
+        self:DrawBar(bx, by, bw, bh, self.healthBarColor, health / math.max(0, tgt:GetMaxHealth()), self.scale, "HEALTH: " .. health)
 
         self:DrawBg(x, by, self.pad, bh, self.healthBarColor)
 
         -- Draw ammo
-        local clip, clip_max, ammo = ASPECTATOR:GetWeapon(tgt)
+        local clip, clip_max, ammo = tgt:AS_GetWeapon()
 
         if clip ~= -1 then
             local text = string.format("%i + %02i", clip, ammo)

@@ -81,6 +81,9 @@ if CLIENT then
 	local credits_default = Material("vgui/ttt/equip/credits_default")
 	local credits_zero = Material("vgui/ttt/equip/credits_zero")
 
+	local icon_armor = Material("vgui/ttt/hud_armor.vmt")
+	local icon_armor_rei = Material("vgui/ttt/hud_armor_reinforced.vmt")
+
 	function HUDELEMENT:Draw()
 		local client = LocalPlayer()
 		local calive = client:Alive() and client:IsTerror()
@@ -205,9 +208,28 @@ if CLIENT then
 
 			-- health bar
 			local health = math.max(0, client:Health())
+			local armor = math.max(0, client:GetArmor())
 
 			self:DrawBg(nx - self.pad, ty, self.pad, bh, self.healthBarColor)
 			self:DrawBar(nx, ty, bw, bh, self.healthBarColor, health / client:GetMaxHealth(), self.scale, "HEALTH: " .. health, self.pad)
+
+			-- draw armor information
+			if not GetGlobalBool("ttt_armor_classic", false) and armor > 0 then
+				local icon_mat = client:ArmorIsReinforced() and icon_armor_rei or icon_armor
+
+				local a_size = bh - math.Round(16 * self.scale)
+				local a_pad = math.Round(10 * self.scale)
+
+				local a_pos_y = ty + math.Round(8 * self.scale)
+				local a_pos_x = nx + bw - math.Round(45 * self.scale) - 2 * a_pad
+
+				local at_pos_y = ty + 0.5 * bh
+				local at_pos_x = a_pos_x + a_size + a_pad + 1
+
+				util.DrawFilteredTexturedRect(a_pos_x, a_pos_y, a_size, a_size, icon_mat)
+
+				draw.AdvancedText(armor, "OctagonalBar", at_pos_x, at_pos_y, self:GetDefaultFontColor(Color(234, 41, 41)), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
+			end
 
 			-- ammo bar
 			ty = ty + bh

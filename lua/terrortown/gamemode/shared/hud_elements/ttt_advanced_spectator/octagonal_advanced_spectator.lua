@@ -99,7 +99,7 @@ if CLIENT then -- CLIENT
 
             self:DrawBg(x, y, w, self.firstrow, tgt:AS_GetRoleColor())
 
-            local icon = Material("vgui/ttt/dynamic/roles/icon_" .. tgt:AS_GetRole().abbr)
+            local icon = tgt:AS_GetRole().iconMaterial
             if icon then
                 util.DrawFilteredTexturedRect(x + self.pad*2 +2, y + 0.5*(self.firstrow-self.row+8) +2, self.row - 8, self.row - 8, icon, 255, {r=0,g=0,b=0})
                 util.DrawFilteredTexturedRect(x + self.pad*2, y + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, icon)

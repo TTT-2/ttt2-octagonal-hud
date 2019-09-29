@@ -119,10 +119,9 @@ if CLIENT then
 			local tgt = client:GetObserverTarget()
 
 			if cactive then
-				local icon = Material("vgui/ttt/dynamic/roles/icon_" .. rd.abbr)
-				if icon then
-					util.DrawFilteredTexturedRect(x2 + self.pad*2 +2, y2 + 0.5*(self.firstrow-self.row+8) +2, self.row - 8, self.row - 8, icon, 255, {r=0,g=0,b=0})
-					util.DrawFilteredTexturedRect(x2 + self.pad*2, y2 + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, icon)
+				if rd.iconMaterial then
+					util.DrawFilteredTexturedRect(x2 + self.pad*2 +2, y2 + 0.5*(self.firstrow-self.row+8) +2, self.row - 8, self.row - 8, rd.iconMaterial, 255, {r=0,g=0,b=0})
+					util.DrawFilteredTexturedRect(x2 + self.pad*2, y2 + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, rd.iconMaterial)
 				end
 			elseif IsValid(tgt) and tgt:IsPlayer() then
 				util.DrawFilteredTexturedRect(x2 + self.pad*2 +2, y2 + 0.5*(self.firstrow-self.row+8) +2, self.row - 8, self.row - 8, watching_icon, 255, {r=0,g=0,b=0})

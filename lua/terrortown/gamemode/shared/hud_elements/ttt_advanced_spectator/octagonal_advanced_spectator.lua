@@ -101,8 +101,8 @@ if CLIENT then -- CLIENT
 
             local icon = tgt:AS_GetRoleData().iconMaterial
             if icon then
-                util.DrawFilteredTexturedRect(x + self.pad*2 +2, y + 0.5*(self.firstrow-self.row+8) +2, self.row - 8, self.row - 8, icon, 255, {r=0,g=0,b=0})
-                util.DrawFilteredTexturedRect(x + self.pad*2, y + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, icon)
+                draw.DrawFilteredTexture(x + self.pad*2 +2, y + 0.5*(self.firstrow-self.row+8) +2, self.row - 8, self.row - 8, icon, 255, {r=0,g=0,b=0})
+                draw.DrawFilteredTexture(x + self.pad*2, y + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, icon)
             end
 
             --calculate the scale multplier for role text

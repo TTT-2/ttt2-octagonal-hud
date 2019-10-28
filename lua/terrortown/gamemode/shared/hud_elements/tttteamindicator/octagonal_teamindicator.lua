@@ -99,8 +99,8 @@ if CLIENT then
 
 		if icon then
 			--drawing the icon as shadow
-			util.DrawFilteredTexturedRect(x + self.pad + self.padding +2, y + self.padding +2, iconSize, iconSize, icon, 255, {r=0,g=0,b=0})
-			util.DrawFilteredTexturedRect(x + self.pad + self.padding, y + self.padding, iconSize, iconSize, icon)
+			draw.DrawFilteredTexture(x + self.pad + self.padding +2, y + self.padding +2, iconSize, iconSize, icon, 255, {r=0,g=0,b=0})
+			draw.DrawFilteredTexture(x + self.pad + self.padding, y + self.padding, iconSize, iconSize, icon)
 		end
 	end
 end

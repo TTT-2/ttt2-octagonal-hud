@@ -87,7 +87,7 @@ if CLIENT then
 
 		local hud_icon = item.hud.GetTexture and item.hud or item.hud[item.active_icon]
 
-		util.DrawFilteredTexturedRect(pos.x + self.pad, curY, self.size_elem, self.size_elem, hud_icon, iconAlpha, fontColor)
+		draw.DrawFilteredTexture(pos.x + self.pad, curY, self.size_elem, self.size_elem, hud_icon, iconAlpha, fontColor)
 
 		if isfunction(item.DrawInfo) then
 			local info = item:DrawInfo()

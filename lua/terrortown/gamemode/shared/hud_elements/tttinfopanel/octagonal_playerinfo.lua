@@ -123,12 +123,12 @@ if CLIENT then
 
 			if cactive then
 				if rd.iconMaterial then
-					util.DrawFilteredTexturedRect(x2 + self.pad*2 +2, y2 + 0.5*(self.firstrow-self.row+8) +2, self.row - 8, self.row - 8, rd.iconMaterial, 255, {r=0,g=0,b=0})
-					util.DrawFilteredTexturedRect(x2 + self.pad*2, y2 + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, rd.iconMaterial)
+					draw.DrawFilteredTexture(x2 + self.pad*2 +2, y2 + 0.5*(self.firstrow-self.row+8) +2, self.row - 8, self.row - 8, rd.iconMaterial, 255, {r=0,g=0,b=0})
+					draw.DrawFilteredTexture(x2 + self.pad*2, y2 + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, rd.iconMaterial)
 				end
 			elseif IsValid(tgt) and tgt:IsPlayer() then
-				util.DrawFilteredTexturedRect(x2 + self.pad*2 +2, y2 + 0.5*(self.firstrow-self.row+8) +2, self.row - 8, self.row - 8, watching_icon, 255, {r=0,g=0,b=0})
-				util.DrawFilteredTexturedRect(x2 + self.pad*2, y2 + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, watching_icon)
+				draw.DrawFilteredTexture(x2 + self.pad*2 +2, y2 + 0.5*(self.firstrow-self.row+8) +2, self.row - 8, self.row - 8, watching_icon, 255, {r=0,g=0,b=0})
+				draw.DrawFilteredTexture(x2 + self.pad*2, y2 + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, watching_icon)
 			end
 
 			-- draw role string name
@@ -225,7 +225,7 @@ if CLIENT then
 				local at_pos_y = ty + 0.5 * bh
 				local at_pos_x = a_pos_x + a_size + a_pad + 1
 
-				util.DrawFilteredTexturedRect(a_pos_x, a_pos_y, a_size, a_size, icon_mat)
+				draw.DrawFilteredTexture(a_pos_x, a_pos_y, a_size, a_size, icon_mat)
 
 				draw.AdvancedText(armor, "OctagonalBar", at_pos_x, at_pos_y, self:GetDefaultFontColor(Color(234, 41, 41)), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
 			end

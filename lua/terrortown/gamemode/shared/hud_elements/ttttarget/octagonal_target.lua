@@ -54,7 +54,7 @@ if CLIENT then -- CLIENT
 
 		local nSize = self.iconSize - 6
 
-		util.DrawFilteredTexturedRect(x + self.pad + 4, y - (nSize - h) * 0.5, nSize, nSize, self.icon)
+		draw.DrawFilteredTexture(x + self.pad + 4, y - (nSize - h) * 0.5, nSize, nSize, self.icon)
 	end
 
 	function HUDELEMENT:ShouldDraw()

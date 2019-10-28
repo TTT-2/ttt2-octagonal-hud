@@ -89,7 +89,7 @@ if CLIENT then
 		self.line_margin = line_margin * self.scale
 		self.top_margin = top_margin * self.scale
 		self.title_bottom_margin = title_bottom_margin * self.scale
-        self.padding = padding * self.scale
+		self.padding = padding * self.scale
 		self.leftImagePad = leftImagePad * self.scale
 		self.image_size = image_size * self.scale
 		self.imageMinHeight = self.image_size + 2 * self.padding
@@ -122,14 +122,14 @@ if CLIENT then
 			item.title_spec.font = imagedmsgfont
 			item.title_spec.font_height = draw.GetFontHeight(item.title_spec.font) * self.scale
 
-			item.title_wrapped = item.title and MSTACK:WrapText(item.title, max_text_width, item.title_spec.font) or {}
+			item.title_wrapped = draw.GetWrappedText(item.title, max_text_width, item.title_spec.font)
 			-- calculate the new height
 			item_height = item_height + self.top_margin + self.title_bottom_margin + #item.title_wrapped * (item.title_spec.font_height + self.line_margin) - self.line_margin
 		end
 
 		item.text_spec.font_height = draw.GetFontHeight(item.text_spec.font) * self.scale
 
-		item.text_wrapped = MSTACK:WrapText(item.text, max_text_width, item.text_spec.font)
+		item.text_wrapped = draw.GetWrappedText(item.text, max_text_width, item.text_spec.font)
 
 		-- Height depends on number of lines, which is equal to number of table
 		-- elements of the wrapped item.text
@@ -147,9 +147,9 @@ if CLIENT then
 
 	function HUDELEMENT:DrawSmallMessage(item, pos_y, alpha)
 		-- Background box
-        self:DrawBg(self.pos.x + self.pad, pos_y, self.size.w - self.pad, item.height, Color(item.bg.r, item.bg.g, item.bg.b, item.bg.a * 0.9))
-        self:DrawBg(self.pos.x, pos_y, self.pad, item.height, item.bg)
-        self:DrawBg(self.pos.x, pos_y, self.pad, item.height, Color(self.darkOverlayColor.r, self.darkOverlayColor.g, self.darkOverlayColor.b, item.bg.a * self.darkOverlayColor.a/255))
+		self:DrawBg(self.pos.x + self.pad, pos_y, self.size.w - self.pad, item.height, Color(item.bg.r, item.bg.g, item.bg.b, item.bg.a * 0.9))
+		self:DrawBg(self.pos.x, pos_y, self.pad, item.height, item.bg)
+		self:DrawBg(self.pos.x, pos_y, self.pad, item.height, Color(self.darkOverlayColor.r, self.darkOverlayColor.g, self.darkOverlayColor.b, item.bg.a * self.darkOverlayColor.a/255))
 
 		-- Text
 		local tx = self.pos.x + self.padding + self.leftPad
@@ -172,9 +172,9 @@ if CLIENT then
 
 	function HUDELEMENT:DrawMessageWithImage(item, pos_y, alpha)
 		-- Background box
-        self:DrawBg(self.pos.x + self.pad, pos_y, self.size.w - self.pad, item.height, Color(item.bg.r, item.bg.g, item.bg.b, item.bg.a * 0.9))
-        self:DrawBg(self.pos.x, pos_y, self.pad, item.height, item.bg)
-        self:DrawBg(self.pos.x, pos_y, self.pad, item.height, Color(self.darkOverlayColor.r, self.darkOverlayColor.g, self.darkOverlayColor.b, item.bg.a * self.darkOverlayColor.a/255))
+		self:DrawBg(self.pos.x + self.pad, pos_y, self.size.w - self.pad, item.height, Color(item.bg.r, item.bg.g, item.bg.b, item.bg.a * 0.9))
+		self:DrawBg(self.pos.x, pos_y, self.pad, item.height, item.bg)
+		self:DrawBg(self.pos.x, pos_y, self.pad, item.height, Color(self.darkOverlayColor.r, self.darkOverlayColor.g, self.darkOverlayColor.b, item.bg.a * self.darkOverlayColor.a/255))
 
 		-- Text
 		local tx = self.pos.x + self.image_size + self.padding + self.leftImagePad + self.pad
@@ -208,8 +208,8 @@ if CLIENT then
 			ty = ty + text_spec.font_height + self.line_margin
 		end
 
-        -- image
-        util.DrawFilteredTexturedRect(self.pos.x + self.padding + self.pad, pos_y + self.padding, self.image_size, self.image_size, item.image, item.bg.a)
+		-- image
+		util.DrawFilteredTexturedRect(self.pos.x + self.padding + self.pad, pos_y + self.padding, self.image_size, self.image_size, item.image, item.bg.a)
 	end
 
 	function HUDELEMENT:ShouldDraw()

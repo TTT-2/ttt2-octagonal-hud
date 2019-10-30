@@ -71,21 +71,21 @@ if CLIENT then -- CLIENT
 		local w, h = size.w, size.h
 		
 		-- draw bg
-        self:DrawBg(x, y, w, h, self.basecolor)
-        self:DrawBg(x, y, self.pad, h, dark_overlay)
+		self:DrawBg(x, y, w, h, self.basecolor)
+		self:DrawBg(x, y, self.pad, h, dark_overlay)
 
-        local color = nil
-        if MARKER_DATA:AbleToWin() then
-            draw.DrawFilteredTexture(x + self.pad + 8 * self.scale, y + 5 * self.scale, 30 * self.scale, 30 * self.scale, self.marker_icon, 175)
-            color = table.Copy(self:GetDefaultFontColor(self.basecolor))
-            color.a = 175
-        else
-            draw.DrawFilteredTexture(x + self.pad + 8 * self.scale, y + 5 * self.scale, 30 * self.scale, 30 * self.scale, self.marker_icon_end, 50)
-            color = table.Copy(self:GetDefaultFontColor(self.basecolor))
-            color.a = 50
-        end
+		local color = nil
+		if MARKER_DATA:AbleToWin() then
+			draw.FilteredShadowedTexture(x + self.pad + 8 * self.scale, y + 5 * self.scale, 30 * self.scale, 30 * self.scale, self.marker_icon, 175, self:GetDefaultFontColor(self.basecolor), self.scale)
+			color = table.Copy(self:GetDefaultFontColor(self.basecolor))
+			color.a = 175
+		else
+			draw.FilteredShadowedTexture(x + self.pad + 8 * self.scale, y + 5 * self.scale, 30 * self.scale, 30 * self.scale, self.marker_icon_end, 50, self:GetDefaultFontColor(self.basecolor), self.scale)
+			color = table.Copy(self:GetDefaultFontColor(self.basecolor))
+			color.a = 50
+		end
 
-        local amnt_print = tostring(MARKER_DATA:GetMarkedAmount()) .. ' / ' .. tostring(MARKER_DATA:AmountToWin())
-        draw.AdvancedText(amnt_print, 'OctagonalBar', x + self.pad +  46 * self.scale, y + 9 * self.scale, color, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, false, self.scale)
-    end
+		local amnt_print = tostring(MARKER_DATA:GetMarkedAmount()) .. ' / ' .. tostring(MARKER_DATA:AmountToWin())
+		draw.AdvancedText(amnt_print, 'OctagonalBar', x + self.pad +  46 * self.scale, y + 9 * self.scale, color, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, false, self.scale)
+	end
 end

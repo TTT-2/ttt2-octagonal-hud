@@ -60,6 +60,14 @@ if CLIENT then
 		BaseClass.PerformLayout(self)
 	end
 
+	function HUDELEMENT:GetDefaultFontColor(bgcolor)
+		if bgcolor.r + bgcolor.g + bgcolor.b < 500 then
+			return COLOR_WHITE
+		else
+			return COLOR_BLACK
+		end
+	end
+
 	HUDELEMENT.roundstate_string = {
 		[ROUND_WAIT] = "round_wait",
 		[ROUND_PREP] = "round_prep",

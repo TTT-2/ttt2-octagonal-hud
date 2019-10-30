@@ -130,9 +130,9 @@ if CLIENT then
             		self:DrawBg(tmp_x, tmp_y, self.ply_ind_size, self.ply_ind_size, ply_color)
 
 			if p:Revived() then
-				draw.DrawFilteredTexture(tmp_x +3, tmp_y +3, self.ply_ind_size -6, self.ply_ind_size -6, self.icon_revived, 180, {r=0,g=0,b=0})
+				draw.FilteredTexture(tmp_x +3, tmp_y +3, self.ply_ind_size -6, self.ply_ind_size -6, self.icon_revived, 180, {r=0,g=0,b=0})
 			elseif p:OnceFound() and not p:RoleKnown() then -- draw marker on indirect confirmed bodies
-				draw.DrawFilteredTexture(tmp_x +3, tmp_y +3, self.ply_ind_size -6, self.ply_ind_size -6, self.icon_in_conf, 120, {r=0,g=0,b=0})
+				draw.FilteredTexture(tmp_x +3, tmp_y +3, self.ply_ind_size -6, self.ply_ind_size -6, self.icon_in_conf, 120, {r=0,g=0,b=0})
 			end
 		end
 	end

@@ -54,7 +54,7 @@ if CLIENT then -- CLIENT
 
 		local nSize = self.iconSize - 6
 
-		draw.DrawFilteredTexture(x + self.pad + 4, y - (nSize - h) * 0.5, nSize, nSize, self.icon)
+		draw.FilteredShadowedTexture(x + self.pad + 4, y - (nSize - h) * 0.5, nSize, nSize, self.icon, 255, self:GetDefaultFontColor(self.basecolor), self.scale)
 	end
 
 	function HUDELEMENT:ShouldDraw()

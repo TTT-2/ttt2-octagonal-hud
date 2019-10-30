@@ -19,12 +19,13 @@ if CLIENT then
 	local margin = 5
 	local pad_piuckup = 8
 
-	HUDELEMENT.SlotIcons = {[WEAPON_HEAVY] = Material("vgui/ttt/pickup/icon_heavy.png"),
-				[WEAPON_PISTOL] = Material("vgui/ttt/pickup/icon_pistol.png"),
-				[WEAPON_NADE] = Material("vgui/ttt/pickup/icon_nades.png"),
-				[WEAPON_SPECIAL] = Material("vgui/ttt/pickup/icon_special.png"),
-				[WEAPON_EXTRA] = Material("vgui/ttt/pickup/icon_extra.png"),
-				[WEAPON_CLASS] = Material("vgui/ttt/pickup/icon_class.png")
+	HUDELEMENT.SlotIcons = {
+		[WEAPON_HEAVY] = Material("vgui/ttt/pickup/icon_heavy.png"),
+		[WEAPON_PISTOL] = Material("vgui/ttt/pickup/icon_pistol.png"),
+		[WEAPON_NADE] = Material("vgui/ttt/pickup/icon_nades.png"),
+		[WEAPON_SPECIAL] = Material("vgui/ttt/pickup/icon_special.png"),
+		[WEAPON_EXTRA] = Material("vgui/ttt/pickup/icon_extra.png"),
+		[WEAPON_CLASS] = Material("vgui/ttt/pickup/icon_class.png")
 	}
 
 	HUDELEMENT.icon_item = Material("vgui/ttt/pickup/icon_special.png")
@@ -102,9 +103,8 @@ if CLIENT then
 		surface.SetDrawColor(tipColor.r, tipColor.g, tipColor.b, alpha)
 		surface.DrawRect(x, y, self.tipsize, h)
 
-		--draw icon (drawing the icon as shadow first)
-		draw.DrawFilteredTexture(x + 1, y + 1, h, h, icon, alpha, {r=0,g=0,b=0})
-		draw.DrawFilteredTexture(x, y, h, h, icon, alpha)
+		--draw icon
+		draw.FilteredShadowedTexture(x, y, h, h, icon, alpha, self:GetDefaultFontColor(tipColor), self.scale)
 
 		--draw name text
 		local fontColor = self.drawer:GetDefaultFontColor(self.basecolor)

@@ -98,9 +98,7 @@ if CLIENT then
 		self:DrawBg(x + w - self.pad, y, self.pad, h, mixColor)
 
 		if icon then
-			--drawing the icon as shadow
-			draw.DrawFilteredTexture(x + self.pad + self.padding +2, y + self.padding +2, iconSize, iconSize, icon, 255, {r=0,g=0,b=0})
-			draw.DrawFilteredTexture(x + self.pad + self.padding, y + self.padding, iconSize, iconSize, icon)
+			draw.FilteredShadowedTexture(x + self.pad + self.padding, y + self.padding, iconSize, iconSize, icon, 255, self:GetDefaultFontColor(c), self.scale)
 		end
 	end
 end

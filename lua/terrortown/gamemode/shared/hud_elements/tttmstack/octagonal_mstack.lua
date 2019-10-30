@@ -209,7 +209,7 @@ if CLIENT then
 		end
 
 		-- image
-		draw.DrawFilteredTexture(self.pos.x + self.padding + self.pad, pos_y + self.padding, self.image_size, self.image_size, item.image, item.bg.a)
+		draw.FilteredTexture(self.pos.x + self.padding + self.pad, pos_y + self.padding, self.image_size, self.image_size, item.image, item.bg.a)
 	end
 
 	function HUDELEMENT:ShouldDraw()

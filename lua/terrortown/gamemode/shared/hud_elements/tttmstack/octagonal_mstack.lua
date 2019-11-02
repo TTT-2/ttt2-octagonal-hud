@@ -105,7 +105,6 @@ if CLIENT then
 
 	function HUDELEMENT:PrepareItem(item, bg_color)
 		local max_text_width = math.Round((self.size.w - self.padding * 2 - self.leftPad) / self.scale)
-		local item_height = self.padding * 2
 
 		item.text_spec = table.Copy(base_text_display_options)
 
@@ -122,18 +121,29 @@ if CLIENT then
 			item.title_spec.font = imagedmsgfont
 			item.title_spec.font_height = draw.GetFontHeight(item.title_spec.font) * self.scale
 
-			item.title_wrapped = draw.GetWrappedText(item.title, max_text_width, item.title_spec.font)
-			-- calculate the new height
-			item_height = item_height + self.top_margin + self.title_bottom_margin + #item.title_wrapped * (item.title_spec.font_height + self.line_margin) - self.line_margin
+			item.title_wrapped = draw.GetWrappedText(item.title, max_text_width, item.title_spec.font, self.scale)
 		end
 
 		item.text_spec.font_height = draw.GetFontHeight(item.text_spec.font) * self.scale
 
-		item.text_wrapped = draw.GetWrappedText(item.text, max_text_width, item.text_spec.font)
+		item.text_wrapped = draw.GetWrappedText(item.text, max_text_width, item.text_spec.font, self.scale)
+
+		local title_lines = item.title_wrapped and #item.title_wrapped or 0
+		local text_lines = item.text_wrapped and #item.text_wrapped or 0
+
+		local text_height = ((title_lines > 0) and (title_lines * item.title_spec.font_height) or 0) + ((text_lines > 0) and (text_lines * item.text_spec.font_height) or 0)
+		text_height = text_height + math.max(title_lines + text_lines - 1, 0) * self.line_margin
+
+		if not item.image or text_height > self.imageMinHeight then
+			item.init_y = 0
+		else
+			item.init_y = 0.5 * (self.imageMinHeight - text_height)
+			item.text_spec.yalign = TEXT_ALIGN_CENTER
+		end
 
 		-- Height depends on number of lines, which is equal to number of table
 		-- elements of the wrapped item.text
-		item_height = item_height + #item.text_wrapped * (item.text_spec.font_height + self.line_margin) - self.line_margin
+		local item_height = text_height + 2 * self.padding
 
 		if item.image then
 			item_height = math.max(item_height, self.imageMinHeight)
@@ -178,7 +188,7 @@ if CLIENT then
 
 		-- Text
 		local tx = self.pos.x + self.image_size + self.padding + self.leftImagePad + self.pad
-		local ty = pos_y + self.padding + self.top_margin
+		local ty = pos_y + self.padding + item.init_y
 
 		-- draw the title text
 		local title_spec = item.title_spec

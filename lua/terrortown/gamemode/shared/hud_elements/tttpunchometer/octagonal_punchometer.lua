@@ -55,7 +55,7 @@ if CLIENT then
 		self:DrawBg(x, y, w, h, self.basecolor)
 		self:DrawBar(x, y, w, h, draw_col, punch, self.scale, L.punch_title, -1)
 
-		draw.AdvancedText(L.punch_help, "TabLarge", x + w * 0.5, y - 10, draw.GetDefaultColor(self.basecolor), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, true, self.scale)
+		draw.AdvancedText(L.punch_help, "TabLarge", x + w * 0.5, y - 10, util.GetDefaultColor(self.basecolor), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, true, self.scale)
 
 		local bonus = client:GetNWInt("bonuspunches", 0)
 		if bonus ~= 0 then
@@ -67,7 +67,7 @@ if CLIENT then
 				text = interp(L.punch_malus, {num = bonus})
 			end
 
-			draw.AdvancedText(text, "TabLarge", x + w * 0.5, y + self.margin * 2 + 20, draw.GetDefaultColor(self.basecolor), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, true, self.scale)
+			draw.AdvancedText(text, "TabLarge", x + w * 0.5, y + self.margin * 2 + 20, util.GetDefaultColor(self.basecolor), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, true, self.scale)
 		end
 	end
 

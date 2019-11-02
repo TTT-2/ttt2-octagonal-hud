@@ -63,7 +63,7 @@ if CLIENT then
 			item.hud_color = self.basecolor
 		end
 
-		local fontColor = draw.GetDefaultColor(item.hud_color)
+		local fontColor = util.GetDefaultColor(item.hud_color)
 		local iconAlpha = fontColor.r > 60 and 175 or 250 
 
 		curY = curY - self.size_elem

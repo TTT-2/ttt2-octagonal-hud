@@ -77,10 +77,10 @@ if CLIENT then
         self:DrawBg(x, ty, w, self.optionHeight, color)
 
 		-- draw key
-		draw.AdvancedText(key, "OctagonalRole", x - self.pad - 0.5 * key_width, ty + self.optionHeight * 0.5, draw.GetDefaultColor(self.basecolor), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, false, self.scale)
+		draw.AdvancedText(key, "OctagonalRole", x - self.pad - 0.5 * key_width, ty + self.optionHeight * 0.5, util.GetDefaultColor(self.basecolor), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, false, self.scale)
 
 		-- draw class name
-		draw.AdvancedText(name, "OctagonalMSTACKMsg", x + w * 0.5, ty + self.optionHeight * 0.5, draw.GetDefaultColor(color), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, false, self.scale)
+		draw.AdvancedText(name, "OctagonalMSTACKMsg", x + w * 0.5, ty + self.optionHeight * 0.5, util.GetDefaultColor(color), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, false, self.scale)
 	end
 
 	local tryT

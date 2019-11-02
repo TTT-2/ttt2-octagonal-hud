@@ -64,7 +64,7 @@ if CLIENT then
 		local is_traitor = not client:IsActive() or client:HasTeam(TEAM_TRAITOR)
 		local endtime = GetGlobalFloat("ttt_round_end", 0) - CurTime()
 		local font = "OctagonalBar"
-		local color = draw.GetDefaultColor(self.basecolor)
+		local color = util.GetDefaultColor(self.basecolor)
 
 		local tmpx = self.pos.x + self.size.w * 0.5
 		local tmpy = self.pos.y + self.size.h * 0.5
@@ -113,7 +113,7 @@ if CLIENT then
 		draw.AdvancedText(text, font, rx, ry, color, TEXT_ALIGN_CENTER, vert_align_clock, false, self.scale)
 
 		if is_haste then
-			draw.AdvancedText(L.hastemode, "OctagonalMSTACKMsg", tmpx, self.pos.y + self.pad_roundinfo, draw.GetDefaultColor(self.basecolor), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, false, self.scale)
+			draw.AdvancedText(L.hastemode, "OctagonalMSTACKMsg", tmpx, self.pos.y + self.pad_roundinfo, util.GetDefaultColor(self.basecolor), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, false, self.scale)
 		end
 	end
 end

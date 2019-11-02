@@ -104,7 +104,7 @@ if CLIENT then
 		surface.DrawRect(x, y, self.tipsize, h)
 
 		--draw icon
-		draw.FilteredShadowedTexture(x, y, h, h, icon, alpha, draw.GetDefaultColor(tipColor), self.scale)
+		draw.FilteredShadowedTexture(x, y, h, h, icon, alpha, util.GetDefaultColor(tipColor), self.scale)
 
 		--draw name text
 		local fontColor = self.drawer:GetDefaultFontColor(self.basecolor)

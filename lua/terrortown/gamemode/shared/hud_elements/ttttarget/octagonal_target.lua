@@ -50,11 +50,11 @@ if CLIENT then -- CLIENT
 
 		self:DrawBg(x, y, w, h, self.basecolor)
 		self:DrawBg(x, y, self.pad, h, self.darkOverlayColor)
-		draw.AdvancedText(name, "OctagonalBar", x + self.iconSize + 2 * self.pad + 4, y + h * 0.5, draw.GetDefaultColor(self.basecolor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
+		draw.AdvancedText(name, "OctagonalBar", x + self.iconSize + 2 * self.pad + 4, y + h * 0.5, util.GetDefaultColor(self.basecolor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
 
 		local nSize = self.iconSize - 6
 
-		draw.FilteredShadowedTexture(x + self.pad + 4, y - (nSize - h) * 0.5, nSize, nSize, self.icon, 255, draw.GetDefaultColor(self.basecolor), self.scale)
+		draw.FilteredShadowedTexture(x + self.pad + 4, y - (nSize - h) * 0.5, nSize, nSize, self.icon, 255, util.GetDefaultColor(self.basecolor), self.scale)
 	end
 
 	function HUDELEMENT:ShouldDraw()

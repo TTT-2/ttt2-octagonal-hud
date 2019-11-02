@@ -41,7 +41,7 @@ if CLIENT then
 
 		-- draw text
 		if t then
-			draw.AdvancedText(t, "OctagonalBar", tx, y + 0.5 * h, draw.GetDefaultColor(c), textalign, TEXT_ALIGN_CENTER, false, s)
+			draw.AdvancedText(t, "OctagonalBar", tx, y + 0.5 * h, util.GetDefaultColor(c), textalign, TEXT_ALIGN_CENTER, false, s)
 		end
 	end
 

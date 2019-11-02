@@ -123,10 +123,10 @@ if CLIENT then
 
 			if cactive then
 				if rd.iconMaterial then
-					draw.FilteredShadowedTexture(x2 + self.pad*2, y2 + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, rd.iconMaterial, 255, draw.GetDefaultColor(c), self.scale)
+					draw.FilteredShadowedTexture(x2 + self.pad*2, y2 + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, rd.iconMaterial, 255, util.GetDefaultColor(c), self.scale)
 				end
 			elseif IsValid(tgt) and tgt:IsPlayer() then
-				draw.FilteredShadowedTexture(x2 + self.pad*2, y2 + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, watching_icon, 255, draw.GetDefaultColor(c), self.scale)
+				draw.FilteredShadowedTexture(x2 + self.pad*2, y2 + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, watching_icon, 255, util.GetDefaultColor(c), self.scale)
 			end
 
 			-- draw role string name
@@ -171,7 +171,7 @@ if CLIENT then
 				tx = nx + self.pad
 			end
 
-			draw.AdvancedText(string.upper(text), "OctagonalRole", tx, ry, draw.GetDefaultColor(c), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, role_scale_multiplier)
+			draw.AdvancedText(string.upper(text), "OctagonalRole", tx, ry, util.GetDefaultColor(c), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, role_scale_multiplier)
 		end
 
 		-- player informations
@@ -225,7 +225,7 @@ if CLIENT then
 
 				draw.FilteredTexture(a_pos_x, a_pos_y, a_size, a_size, icon_mat)
 
-				draw.AdvancedText(armor, "OctagonalBar", at_pos_x, at_pos_y, draw.GetDefaultColor(Color(234, 41, 41)), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
+				draw.AdvancedText(armor, "OctagonalBar", at_pos_x, at_pos_y, util.GetDefaultColor(Color(234, 41, 41)), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
 			end
 
 			-- ammo bar

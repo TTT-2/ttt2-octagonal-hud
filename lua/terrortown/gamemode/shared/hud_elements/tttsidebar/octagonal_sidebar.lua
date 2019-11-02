@@ -63,7 +63,7 @@ if CLIENT then
 			item.hud_color = self.basecolor
 		end
 
-		local fontColor = self:GetDefaultFontColor(item.hud_color)
+		local fontColor = draw.GetDefaultColor(item.hud_color)
 		local iconAlpha = fontColor.r > 60 and 175 or 250 
 
 		curY = curY - self.size_elem
@@ -87,7 +87,7 @@ if CLIENT then
 
 		local hud_icon = item.hud.GetTexture and item.hud or item.hud[item.active_icon]
 
-		draw.FilteredShdaowedTexture(pos.x + self.pad, curY, self.size_elem, self.size_elem, hud_icon, iconAlpha, fontColor, 255, fontColor, self.scale)
+		draw.FilteredShadowedTexture(pos.x + self.pad, curY, self.size_elem, self.size_elem, hud_icon, iconAlpha, fontColor, self.scale)
 
 		if isfunction(item.DrawInfo) then
 			local info = item:DrawInfo()

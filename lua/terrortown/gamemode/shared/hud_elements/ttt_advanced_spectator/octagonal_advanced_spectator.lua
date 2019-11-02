@@ -102,7 +102,7 @@ if CLIENT then -- CLIENT
 
 			local icon = tgt:AS_GetRoleData().iconMaterial
 			if icon then
-				draw.FilteredShadowedTexture(x + self.pad * 2, y + 0.5 * (self.firstrow-self.row + 8), self.row - 8, self.row - 8, icon, 255, self:GetDefaultFontColor(tgt:AS_GetRoleColor()), self.scale)
+				draw.FilteredShadowedTexture(x + self.pad * 2, y + 0.5 * (self.firstrow-self.row + 8), self.row - 8, self.row - 8, icon, 255, draw.GetDefaultColor(tgt:AS_GetRoleColor()), self.scale)
 			end
 
 			--calculate the scale multplier for role text
@@ -112,7 +112,7 @@ if CLIENT then -- CLIENT
 			local role_scale_multiplier = (self.size.w - self.firstrow) / role_text_width
 
 			role_scale_multiplier = math.Clamp(role_scale_multiplier, 0.55, 0.85) * self.scale
-			draw.AdvancedText(string.upper(text), "OctagonalRole", tx, ty, self:GetDefaultFontColor(self.basecolor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, Vector(role_scale_multiplier * 0.9, role_scale_multiplier, role_scale_multiplier))
+			draw.AdvancedText(string.upper(text), "OctagonalRole", tx, ty, draw.GetDefaultColor(self.basecolor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, Vector(role_scale_multiplier * 0.9, role_scale_multiplier, role_scale_multiplier))
 		end
 
 		-- draw bars

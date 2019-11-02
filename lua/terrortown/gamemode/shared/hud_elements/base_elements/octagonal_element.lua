@@ -32,7 +32,7 @@ if CLIENT then
 		p = math.min((p or 1), 1)
 		textalign = (tp == -1) and TEXT_ALIGN_CENTER or TEXT_ALIGN_LEFT
 		tp = (not tp or tp == -1) and 14 or tp
-		tx = (textalign == TEXT_ALIGN_CENTER) and x + 0.5*w or x + tp
+		tx = (textalign == TEXT_ALIGN_CENTER) and x + 0.5 * w or x + tp
 
 		local w2 = math.Round(w * p)
 
@@ -41,7 +41,7 @@ if CLIENT then
 
 		-- draw text
 		if t then
-			draw.AdvancedText(t, "OctagonalBar", tx, y + 0.5*h, self:GetDefaultFontColor(c), textalign, TEXT_ALIGN_CENTER, false, s)
+			draw.AdvancedText(t, "OctagonalBar", tx, y + 0.5 * h, draw.GetDefaultColor(c), textalign, TEXT_ALIGN_CENTER, false, s)
 		end
 	end
 
@@ -58,14 +58,6 @@ if CLIENT then
 		self.pad = math.Round(pad * self:GetHUDScale(), 0)
 
 		BaseClass.PerformLayout(self)
-	end
-
-	function HUDELEMENT:GetDefaultFontColor(bgcolor)
-		if bgcolor.r + bgcolor.g + bgcolor.b < 500 then
-			return COLOR_WHITE
-		else
-			return COLOR_BLACK
-		end
 	end
 
 	HUDELEMENT.roundstate_string = {

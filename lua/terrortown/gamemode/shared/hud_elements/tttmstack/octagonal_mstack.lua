@@ -21,7 +21,7 @@ if CLIENT then
 	local line_margin = 6
 	local top_margin = 6
 	local title_bottom_margin = 8
-    local padding = 6
+	local padding = 6
 	local leftImagePad = 10
 	local image_size = 64
 
@@ -78,7 +78,7 @@ if CLIENT then
 		const_defaults["basepos"] = {x = ScrW() - self.margin - self.size.w, y = self.margin}
 
 		return const_defaults
- 	end
+	end
 
 	function HUDELEMENT:PerformLayout()
 		self.scale = self:GetHUDScale()
@@ -134,10 +134,12 @@ if CLIENT then
 		local text_height = ((title_lines > 0) and (title_lines * item.title_spec.font_height) or 0) + ((text_lines > 0) and (text_lines * item.text_spec.font_height) or 0)
 		text_height = text_height + math.max(title_lines + text_lines - 1, 0) * self.line_margin
 
-		if not item.image or text_height > self.imageMinHeight then
+		if not item.image and text_height < self.image_size then
 			item.init_y = 0
-		else
-			item.init_y = 0.5 * (self.imageMinHeight - text_height)
+		elseif item.image and text_height > self.image_size then -- display text next to image (higher than image)
+			item.init_y = 0.5 * self.padding
+		else -- display text next to image (centered)
+			item.init_y = 0.5 * (self.imageMinHeight - text_height) + self.padding
 			item.text_spec.yalign = TEXT_ALIGN_CENTER
 		end
 
@@ -159,7 +161,7 @@ if CLIENT then
 		-- Background box
 		self:DrawBg(self.pos.x + self.pad, pos_y, self.size.w - self.pad, item.height, Color(item.bg.r, item.bg.g, item.bg.b, item.bg.a * 0.9))
 		self:DrawBg(self.pos.x, pos_y, self.pad, item.height, item.bg)
-		self:DrawBg(self.pos.x, pos_y, self.pad, item.height, Color(self.darkOverlayColor.r, self.darkOverlayColor.g, self.darkOverlayColor.b, item.bg.a * self.darkOverlayColor.a/255))
+		self:DrawBg(self.pos.x, pos_y, self.pad, item.height, Color(self.darkOverlayColor.r, self.darkOverlayColor.g, self.darkOverlayColor.b, item.bg.a * self.darkOverlayColor.a / 255))
 
 		-- Text
 		local tx = self.pos.x + self.padding + self.leftPad
@@ -184,11 +186,11 @@ if CLIENT then
 		-- Background box
 		self:DrawBg(self.pos.x + self.pad, pos_y, self.size.w - self.pad, item.height, Color(item.bg.r, item.bg.g, item.bg.b, item.bg.a * 0.9))
 		self:DrawBg(self.pos.x, pos_y, self.pad, item.height, item.bg)
-		self:DrawBg(self.pos.x, pos_y, self.pad, item.height, Color(self.darkOverlayColor.r, self.darkOverlayColor.g, self.darkOverlayColor.b, item.bg.a * self.darkOverlayColor.a/255))
+		self:DrawBg(self.pos.x, pos_y, self.pad, item.height, Color(self.darkOverlayColor.r, self.darkOverlayColor.g, self.darkOverlayColor.b, item.bg.a * self.darkOverlayColor.a / 255))
 
 		-- Text
 		local tx = self.pos.x + self.image_size + self.padding + self.leftImagePad + self.pad
-		local ty = pos_y + self.padding + item.init_y
+		local ty = pos_y + item.init_y
 
 		-- draw the title text
 		local title_spec = item.title_spec
@@ -228,7 +230,7 @@ if CLIENT then
 
 	function HUDELEMENT:Draw()
 		local running_y = self.pos.y
-		
+
 		for k, item in pairs(MSTACK.msgs) do
 			if item.time < CurTime() then
 				if not item.ready then

@@ -107,7 +107,7 @@ if CLIENT then
 		draw.FilteredShadowedTexture(x, y, h, h, icon, alpha, util.GetDefaultColor(tipColor), self.scale)
 
 		--draw name text
-		local fontColor = self.drawer:GetDefaultFontColor(self.basecolor)
+		local fontColor = util.GetDefaultColor(self.basecolor)
 		fontColor = Color(fontColor.r, fontColor.g, fontColor.b, alpha)
 		draw.AdvancedText(item.name, font, x + self.tipsize + self.iw + self.pad_piuckup, y + h * 0.5, fontColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
 

@@ -7,10 +7,10 @@ HUDELEMENT.Base = base
 if CLIENT then
 	local GetLang = LANG.GetUnsafeLanguageTable
 
-    local sri_text_width_padding = 8 -- secondary role information padding (needed for size calculations)
-    local firstrow = 50
-    local row = 40
-    local gap = 5
+	local sri_text_width_padding = 8 -- secondary role information padding (needed for size calculations)
+	local firstrow = 50
+	local row = 40
+	local gap = 5
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
@@ -78,8 +78,6 @@ if CLIENT then
 	end
 
 	local watching_icon = Material("vgui/ttt/watching_icon")
-	local credits_default = Material("vgui/ttt/equip/credits_default")
-	local credits_zero = Material("vgui/ttt/equip/credits_zero")
 
 	local icon_armor = Material("vgui/ttt/hud_armor.vmt")
 	local icon_armor_rei = Material("vgui/ttt/hud_armor_reinforced.vmt")
@@ -123,10 +121,10 @@ if CLIENT then
 
 			if cactive then
 				if rd.iconMaterial then
-					draw.FilteredShadowedTexture(x2 + self.pad*2, y2 + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, rd.iconMaterial, 255, util.GetDefaultColor(c), self.scale)
+					draw.FilteredShadowedTexture(x2 + self.pad * 2, y2 + 0.5 * (self.firstrow - self.row + 8), self.row - 8, self.row - 8, rd.iconMaterial, 255, util.GetDefaultColor(c), self.scale)
 				end
 			elseif IsValid(tgt) and tgt:IsPlayer() then
-				draw.FilteredShadowedTexture(x2 + self.pad*2, y2 + 0.5*(self.firstrow-self.row+8), self.row - 8, self.row - 8, watching_icon, 255, util.GetDefaultColor(c), self.scale)
+				draw.FilteredShadowedTexture(x2 + self.pad * 2, y2 + 0.5 * (self.firstrow - self.row + 8), self.row - 8, self.row - 8, watching_icon, 255, util.GetDefaultColor(c), self.scale)
 			end
 
 			-- draw role string name
@@ -190,7 +188,7 @@ if CLIENT then
 					local sri_xoffset = w2 - sri_width
 
 					local nx2 = x2 + sri_xoffset
-					
+
 					local mixColor = Color((secInfoTbl.color.r + c.r) * 0.5, (secInfoTbl.color.g + c.g) * 0.5, (secInfoTbl.color.b + c.b) * 0.5, (secInfoTbl.color.a + c.a) * 0.5)
 					self:DrawBg(nx2 - self.pad, y2, self.pad, self.firstrow, mixColor)
 

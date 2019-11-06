@@ -5,9 +5,6 @@ DEFINE_BASECLASS(base)
 HUDELEMENT.Base = base
 
 if CLIENT then
-	local shadowColorDark = Color(0, 0, 0, 200)
-	local shadowColorWhite = Color(200, 200, 200, 200)
-
 	local pad = 10
 	HUDELEMENT.pad = pad
 
@@ -29,7 +26,7 @@ if CLIENT then
 	-- x, y, width, height, color, progress, scale, text, textpadding
 	function HUDELEMENT:DrawBar(x, y, w, h, c, p, s, t, tp)
 		s = s or 1
-		p = math.min((p or 1), 1)
+		p = math.min(p or 1, 1)
 		textalign = (tp == -1) and TEXT_ALIGN_CENTER or TEXT_ALIGN_LEFT
 		tp = (not tp or tp == -1) and 14 or tp
 		tx = (textalign == TEXT_ALIGN_CENTER) and x + 0.5 * w or x + tp
@@ -42,15 +39,6 @@ if CLIENT then
 		-- draw text
 		if t then
 			draw.AdvancedText(t, "OctagonalBar", tx, y + 0.5 * h, util.GetDefaultColor(c), textalign, TEXT_ALIGN_CENTER, false, s)
-		end
-	end
-
-	function HUDELEMENT:GetDefaultFontColor(bgcolor)
-		local color = 0
-		if bgcolor.r + bgcolor.g + bgcolor.b < 500 then
-			return COLOR_WHITE
-		else
-			return COLOR_BLACK
 		end
 	end
 

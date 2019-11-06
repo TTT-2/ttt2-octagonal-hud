@@ -9,7 +9,7 @@ if CLIENT then
 		basepos = {x = 0, y = 0},
 		size = {w = 321, h = 40},
 		minsize = {w = 75, h = 40}
-    }
+	}
 
 	function HUDELEMENT:Initialize()
 		self.basecolor = self:GetHUDBasecolor()
@@ -36,8 +36,7 @@ if CLIENT then
 	end
 
 	function HUDELEMENT:PerformLayout()
-		local scale = self:GetHUDScale()
-
+		self.scale = self:GetHUDScale()
 		self.basecolor = self:GetHUDBasecolor()
 
 		BaseClass.PerformLayout(self)
@@ -51,9 +50,9 @@ if CLIENT then
 		local w, h = size.w, size.h
 
 		-- draw bg and shadow
-        self:DrawBg(x, y, w, h, self.basecolor)
-        self:DrawBg(x, y, self.pad, h, self.extraBarColor)
-        self:DrawBg(x, y, self.pad, h, self.darkOverlayColor)
+		self:DrawBg(x, y, w, h, self.basecolor)
+		self:DrawBg(x, y, self.pad, h, self.extraBarColor)
+		self:DrawBg(x, y, self.pad, h, self.darkOverlayColor)
 
 		self:DrawBar(x + self.pad, y, w - self.pad, h, self.extraBarColor, HUDEditor.IsEditing and 1 or (client.drowningProgress or 1), 1, LANG.GetTranslation("ttt2_octagonal_drowning"))
 	end

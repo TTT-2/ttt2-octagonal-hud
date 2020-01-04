@@ -45,14 +45,14 @@ if CLIENT then
 
 	function HUDELEMENT:GetDefaults()
 		return const_defaults
- 	end
+	end
 
 	function HUDELEMENT:PerformLayout()
 		local parent_pos = self.parentInstance:GetPos()
 		local parent_size = self.parentInstance:GetSize()
 		local parent_defaults = self.parentInstance:GetDefaults()
 		local h = parent_size.h
-		local w = const_defaults.size.w * h/const_defaults.size.h
+		local w = const_defaults.size.w * h / const_defaults.size.h
 
 		self.basecolor = self:GetHUDBasecolor()
 		self.scale = h / parent_defaults.size.h
@@ -77,6 +77,7 @@ if CLIENT then
 
 		local iconSize = h - self.padding * 2
 		local icon, c
+
 		if LocalPlayer():Alive() and LocalPlayer():IsTerror() then
 			if (team == TEAM_NONE or not tm or tm.alone) then -- support roles without a team
 				icon = material_no_team

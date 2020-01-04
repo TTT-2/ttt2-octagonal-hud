@@ -1,8 +1,6 @@
 local draw = draw
 local surface = surface
 local math = math
-local IsValid = IsValid
-local TryTranslation = LANG.TryTranslation
 
 local base = "base_stacking_element"
 
@@ -138,12 +136,11 @@ if CLIENT then
 		PICKUP.RemoveOutdatedValues()
 	end
 
-	function HUDELEMENT:DrawElement(i, x, y, w, h)	
+	function HUDELEMENT:DrawElement(i, x, y, w, h)
 		local item = PICKUP.items[i]
 
 		local alpha = 255
 		local delta = (item.time + item.holdtime - CurTime()) / item.holdtime
-		local colordelta = math.Clamp(delta, 0.6, 0.7)
 
 		if delta > 1 - item.fadein then
 			alpha = math.Clamp((1.0 - delta) * (255 / item.fadein), 1, 255)

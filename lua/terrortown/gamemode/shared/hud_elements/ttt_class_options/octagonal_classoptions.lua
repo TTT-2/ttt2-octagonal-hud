@@ -22,12 +22,12 @@ if CLIENT then
 		BaseClass.PreInitialize(self)
 
 		local hud = huds.GetStored("octagonal")
-        if hud then
-            hud:ForceElement(self.id)
-        end
+		if hud then
+			hud:ForceElement(self.id)
+		end
 
-        -- set as NOT fallback default
-        self.disabledUnlessForced = true
+		-- set as NOT fallback default
+		self.disabledUnlessForced = true
 	end
 
 	function HUDELEMENT:Initialize()
@@ -35,7 +35,7 @@ if CLIENT then
 		self.optionMargin = optionMargin
 		self.optionWidth = optionWidth
 		self.optionHeight = optionHeight
-        self.basecolor = self:GetHUDBasecolor()
+		self.basecolor = self:GetHUDBasecolor()
 
 		BaseClass.Initialize(self)
 	end
@@ -61,20 +61,20 @@ if CLIENT then
 		BaseClass.PerformLayout(self)
 	end
 
-    function HUDELEMENT:DrawClassOption(ty, key, name, color, key_width)
-        -- generate color
-        local interpolColor = Color(color.r * 0.5 + self.basecolor.r * 0.5, color.g * 0.5 + self.basecolor.g * 0.5, color.b * 0.5 + self.basecolor.b * 0.5, color.a * 0.5 + self.basecolor.a * 0.5)
+	function HUDELEMENT:DrawClassOption(ty, key, name, color, key_width)
+		-- generate color
+		local interpolColor = Color(color.r * 0.5 + self.basecolor.r * 0.5, color.g * 0.5 + self.basecolor.g * 0.5, color.b * 0.5 + self.basecolor.b * 0.5, color.a * 0.5 + self.basecolor.a * 0.5)
 
-        -- scale keysize
-        key_width = key_width * self.scale + self.pad
+		-- scale keysize
+		key_width = key_width * self.scale + self.pad
 
 		local w = self:GetSize().w
-        local x = self:GetPos().x
+		local x = self:GetPos().x
 
 		-- draw boxes
-        self:DrawBg(x - key_width - self.pad, ty, key_width, self.optionHeight, self.basecolor)
-        self:DrawBg(x - self.pad, ty, self.pad, self.optionHeight, interpolColor)
-        self:DrawBg(x, ty, w, self.optionHeight, color)
+		self:DrawBg(x - key_width - self.pad, ty, key_width, self.optionHeight, self.basecolor)
+		self:DrawBg(x - self.pad, ty, self.pad, self.optionHeight, interpolColor)
+		self:DrawBg(x, ty, w, self.optionHeight, color)
 
 		-- draw key
 		draw.AdvancedText(key, "OctagonalRole", x - self.pad - 0.5 * key_width, ty + self.optionHeight * 0.5, util.GetDefaultColor(self.basecolor), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, false, self.scale)
@@ -101,19 +101,19 @@ if CLIENT then
 		local hd2 = CLASS.GetClassDataByIndex(client.classOpt2)
 
 		-- make sure hd1 and hd2 are always defined to make sure the HUD editor is working
-		if not hd1 then	
+		if not hd1 then
 			hd1 = {name = "Placeholder Class 1", color = Color(255, 100, 120)}
 		end
-		if not hd2 then	
+		if not hd2 then
 			hd2 = {name = "Placeholder Class 2", color = Color(70, 120, 180)}
-        end
-        
-        -- get keysize of both bound keys and use the bigger one
-        surface.SetFont("OctagonalRole")
-        local key_width = surface.GetTextSize(string.upper(key1))
-        key_width = math.max(key_width, surface.GetTextSize(string.upper(key2)))
+		end
 
-        -- draw the two elements
+		-- get keysize of both bound keys and use the bigger one
+		surface.SetFont("OctagonalRole")
+		local key_width = surface.GetTextSize(string.upper(key1))
+		key_width = math.max(key_width, surface.GetTextSize(string.upper(key2)))
+
+		-- draw the two elements
 		self:DrawClassOption(y_temp, key1, tryT(hd1.name), hd1.color, key_width)
 
 		y_temp = y_temp + self.optionHeight + 5

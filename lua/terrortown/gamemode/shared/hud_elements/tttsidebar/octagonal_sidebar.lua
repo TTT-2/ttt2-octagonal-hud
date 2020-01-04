@@ -43,7 +43,7 @@ if CLIENT then
 	function HUDELEMENT:PerformLayout()
 		self.scale = self:GetHUDScale()
 		self.basecolor = self:GetHUDBasecolor()
-        self.padding = padding * self.scale
+		self.padding = padding * self.scale
 		self.size_elem = size_elem * self.scale
 
 		BaseClass.PerformLayout(self)
@@ -64,7 +64,7 @@ if CLIENT then
 		end
 
 		local fontColor = util.GetDefaultColor(item.hud_color)
-		local iconAlpha = fontColor.r > 60 and 175 or 250 
+		local iconAlpha = fontColor.r > 60 and 175 or 250
 
 		curY = curY - self.size_elem
 
@@ -103,7 +103,7 @@ if CLIENT then
 				infoW = infoW * self.scale
 				infoH = (infoH + 2) * self.scale
 
-				local bx = tx - infoW - 2*pad
+				local bx = tx - infoW - 2 * pad
 				local by = ty - infoH
 				local bw = infoW + pad * 2
 
@@ -144,21 +144,21 @@ if CLIENT then
 
 		num_icons = num_icons + num_status
 
-        local height = math.max(num_icons, 1) * self.size_elem + math.max(num_icons -1, 0) * ((num_icons > 1) and self.padding or 0)
-        local startY = basepos.y + 0.5 * self.size_elem + 0.5 * height
+		local height = math.max(num_icons, 1) * self.size_elem + math.max(num_icons -1, 0) * ((num_icons > 1) and self.padding or 0)
+		local startY = basepos.y + 0.5 * self.size_elem + 0.5 * height
 		local curY = startY
 
 		-- draw status
 		for _, status in pairs(STATUS.active) do
-			if status.type == 'bad' then
+			if status.type == "bad" then
 				status.hud_color = Color(183, 54, 47)
 			end
 
-			if status.type == 'good' then
+			if status.type == "good" then
 				status.hud_color = Color(36, 115, 51)
 			end
 
-			if status.type == 'default' then
+			if status.type == "default" then
 				status.hud_color = Color(self.basecolor.r, self.basecolor.g, self.basecolor.b)
 			end
 
@@ -180,7 +180,7 @@ if CLIENT then
 			end
 		end
 
-        self:SetSize(self.size.w, - math.max(height, self.size_elem)) -- adjust the size
-        self:SetPos(basepos.x, startY - height)
+		self:SetSize(self.size.w, - math.max(height, self.size_elem)) -- adjust the size
+		self:SetPos(basepos.x, startY - height)
 	end
 end

@@ -1,4 +1,4 @@
-local base = 'octagonal_element'
+local base = "octagonal_element"
 
 DEFINE_BASECLASS(base)
 local element = hudelements.GetStored(base)
@@ -15,14 +15,12 @@ if CLIENT then -- CLIENT
 
 	local barFont = "OctagonalBar"
 
-	local barColor = Color(205, 155, 0, 255)
-	local timerColor = Color(234, 41, 41)
 	local gap = 5
 
 	function HUDELEMENT:PreInitialize()
 		print("demPosInfoOctagonal")
 		BaseClass.PreInitialize(self)
-		
+
 		local hud = huds.GetStored("octagonal")
 		if hud then
 			hud:ForceElement(self.id)
@@ -47,9 +45,9 @@ if CLIENT then -- CLIENT
 
 		BaseClass.PerformLayout(self)
 	end
-	
+
 	function HUDELEMENT:GetDefaults()
-		const_defaults['basepos'] = {x = math.Round(self.pad), y = math.Round(ScrH() * 0.5 - self.size.h * 0.5)}
+		const_defaults["basepos"] = {x = math.Round(self.pad), y = math.Round(ScrH() * 0.5 - self.size.h * 0.5)}
 
 		return const_defaults
 	end
@@ -68,7 +66,7 @@ if CLIENT then -- CLIENT
 	function HUDELEMENT:DrawSupersheep(x, y, w, h, fontColor, supersheep)
 		local rx, ry = x, y
 		local bw, bh = w, self.barheight
-		
+
 		--draw timer
 		local timeLeft = math.max(math.Truncate(30 - (CurTime() - supersheep.SheepStartTime),0) + 1, 0)
 		local timerX = x + w * 0.5 - self.timersize * 0.5 - self.pad
@@ -113,7 +111,6 @@ if CLIENT then -- CLIENT
 		local size = self:GetSize()
 		local x, y = pos.x, pos.y
 		local w, h = size.w, size.h
-		local supersheep = client.supersheep
 		local fontColor = util.GetDefaultFontColor(self.basecolor)
 
 		-- draw bg
@@ -161,6 +158,5 @@ if CLIENT then -- CLIENT
 
 		--drawing the interpolation bar
 		self:DrawBg(x, y, self.pad, h, self.darkOverlayColor)
-
 	end
 end

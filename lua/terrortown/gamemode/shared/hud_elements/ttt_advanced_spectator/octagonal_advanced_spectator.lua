@@ -1,4 +1,4 @@
-local base = 'octagonal_element'
+local base = "octagonal_element"
 
 DEFINE_BASECLASS(base)
 
@@ -17,7 +17,7 @@ if CLIENT then -- CLIENT
 
 	function HUDELEMENT:PreInitialize()
 		BaseClass.PreInitialize(self)
-		
+
 		local hud = huds.GetStored("octagonal")
 		if hud then
 			hud:ForceElement(self.id)
@@ -46,7 +46,7 @@ if CLIENT then -- CLIENT
 	end
 
 	function HUDELEMENT:GetDefaults()
-		const_defaults["basepos"] = {x = 10 * self.scale, y = ScrH() - ((60) * self.scale + self.size.h)}
+		const_defaults["basepos"] = {x = 10 * self.scale, y = ScrH() - (60 * self.scale + self.size.h)}
 
 		return const_defaults
 	end
@@ -61,7 +61,7 @@ if CLIENT then -- CLIENT
 		local tgt = c:GetObserverTarget()
 
 		if not ASPECTATOR then return end
-		if GetGlobalBool('ttt_aspectator_admin_only', false) and not c:IsAdmin() then return false end
+		if GetGlobalBool("ttt_aspectator_admin_only", false) and not c:IsAdmin() then return false end
 
 		local tgt_is_valid = IsValid(tgt) and tgt:IsPlayer()
 
@@ -78,12 +78,11 @@ if CLIENT then -- CLIENT
 			tgt = LocalPlayer()
 		end
 
-		local client = LocalPlayer()
 		local pos = self:GetPos()
 		local size = self:GetSize()
 		local x, y = pos.x, pos.y
 		local w, h = size.w, size.h
-		
+
 		local show_role = GetGlobalBool("ttt_aspectator_display_role", true)
 		if not show_role then
 			h = h - self.firstrow - self.gap

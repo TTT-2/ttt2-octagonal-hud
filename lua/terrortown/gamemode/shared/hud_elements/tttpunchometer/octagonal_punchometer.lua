@@ -38,9 +38,9 @@ if CLIENT then
 
 	function HUDELEMENT:GetDefaults()
 		const_defaults["basepos"] = {x = ScrW() * 0.5 - self.size.w * 0.5, y = self.margin + 72 * self.scale}
-		
+
 		return const_defaults
- 	end
+	end
 
 	-- Paint punch-o-meter
 	function HUDELEMENT:PunchPaint()
@@ -72,8 +72,6 @@ if CLIENT then
 	end
 
 	function HUDELEMENT:PerformLayout()
-		local size = self:GetSize()
-
 		self.scale = self:GetHUDScale()
 		self.basecolor = self:GetHUDBasecolor()
 		self.margin = margin * self.scale
@@ -105,7 +103,7 @@ if CLIENT then
 		else
 			draw.AdvancedText(interp(L.spec_help, key_params), "TabLarge", x + self.size.w * 0.5, y, COLOR_WHITE, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, true, self.scale)
 			if GetConVar("ttt_spectator_mode"):GetBool() then
-				draw.AdvancedText(interp(L.spec_help2, key_params), "TabLarge", x + self.size.w * 0.5, y +20, COLOR_WHITE, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, true, self.scale)
+				draw.AdvancedText(interp(L.spec_help2, key_params), "TabLarge", x + self.size.w * 0.5, y + 20, COLOR_WHITE, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, true, self.scale)
 			end
 		end
 	end

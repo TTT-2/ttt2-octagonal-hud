@@ -11,7 +11,6 @@ if CLIENT then
 	local element_margin = 4
 	local row_count = 2
 	local bgcolor = Color(100, 100, 100, 255)
-	local alivecolor = Color(0, 0, 0, 255)
 
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
@@ -127,12 +126,12 @@ if CLIENT then
 
 			local ply_color = GetMSBColorForPlayer(p, bgcolor)
 
-            		self:DrawBg(tmp_x, tmp_y, self.ply_ind_size, self.ply_ind_size, ply_color)
+			self:DrawBg(tmp_x, tmp_y, self.ply_ind_size, self.ply_ind_size, ply_color)
 
 			if p:Revived() then
-				draw.FilteredTexture(tmp_x +3, tmp_y +3, self.ply_ind_size -6, self.ply_ind_size -6, self.icon_revived, 180, {r=0,g=0,b=0})
+				draw.FilteredTexture(tmp_x + 3, tmp_y + 3, self.ply_ind_size -6, self.ply_ind_size -6, self.icon_revived, 180, {r = 0,g = 0,b = 0})
 			elseif p:OnceFound() and not p:RoleKnown() then -- draw marker on indirect confirmed bodies
-				draw.FilteredTexture(tmp_x +3, tmp_y +3, self.ply_ind_size -6, self.ply_ind_size -6, self.icon_in_conf, 120, {r=0,g=0,b=0})
+				draw.FilteredTexture(tmp_x + 3, tmp_y + 3, self.ply_ind_size -6, self.ply_ind_size -6, self.icon_in_conf, 120, {r = 0,g = 0,b = 0})
 			end
 		end
 	end

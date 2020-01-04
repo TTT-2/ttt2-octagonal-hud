@@ -1,4 +1,4 @@
-local base = 'octagonal_element'
+local base = "octagonal_element"
 
 DEFINE_BASECLASS(base)
 local element = hudelements.GetStored(base)
@@ -18,10 +18,10 @@ if CLIENT then -- CLIENT
 		size = {w = 350, h = 2 * barheight},
 		minsize = {w = 350, h = 2 * barheight}
 	}
-	
+
 	function HUDELEMENT:PreInitialize()
 		BaseClass.PreInitialize(self)
-		
+
 		local hud = huds.GetStored("octagonal")
 		if hud then
 			hud:ForceElement(self.id)
@@ -50,9 +50,9 @@ if CLIENT then -- CLIENT
 
 		BaseClass.PerformLayout(self)
 	end
-	
+
 	function HUDELEMENT:GetDefaults()
-		const_defaults['basepos'] = {x = math.Round(ScrW() / 2 - self.size.w * 0.5), y = math.Round(ScrH() - self.size.h - self.pad)}
+		const_defaults["basepos"] = {x = math.Round(ScrW() / 2 - self.size.w * 0.5), y = math.Round(ScrH() - self.size.h - self.pad)}
 
 		return const_defaults
 	end

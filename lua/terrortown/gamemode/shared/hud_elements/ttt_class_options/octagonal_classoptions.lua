@@ -61,6 +61,14 @@ if CLIENT then
 		BaseClass.PerformLayout(self)
 	end
 
+	function HUDELEMENT:ShouldDraw()
+		if not TTTC then return end
+
+		local client = LocalPlayer()
+
+		return HUDEditor.IsEditing or (client.classOpt1 and client.classOpt2 and client:IsActive() and GetGlobalBool("ttt2_classes") and GetGlobalBool("ttt_classes_option"))
+	end
+
 	function HUDELEMENT:DrawClassOption(ty, key, name, color, key_width)
 		-- generate color
 		local interpolColor = Color(color.r * 0.5 + self.basecolor.r * 0.5, color.g * 0.5 + self.basecolor.g * 0.5, color.b * 0.5 + self.basecolor.b * 0.5, color.a * 0.5 + self.basecolor.a * 0.5)
@@ -119,11 +127,5 @@ if CLIENT then
 		y_temp = y_temp + self.optionHeight + 5
 
 		self:DrawClassOption(y_temp, key2, tryT(hd2.name), hd2.color, key_width)
-	end
-
-	function HUDELEMENT:ShouldDraw()
-		local client = LocalPlayer()
-
-		return HUDEditor.IsEditing or (client.classOpt1 and client.classOpt2 and client:IsActive() and GetGlobalBool("ttt2_classes") and GetGlobalBool("ttt_classes_option"))
 	end
 end

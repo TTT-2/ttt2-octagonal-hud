@@ -15,6 +15,9 @@ if CLIENT then -- CLIENT
 	local row = 40
 	local gap = 5
 
+	local icon_armor = Material("vgui/ttt/hud_armor")
+	local icon_armor_rei = Material("vgui/ttt/hud_armor_reinforced")
+
 	function HUDELEMENT:PreInitialize()
 		BaseClass.PreInitialize(self)
 
@@ -127,6 +130,26 @@ if CLIENT then -- CLIENT
 		self:DrawBar(bx, by, bw, bh, self.healthBarColor, health / math.max(0, tgt:GetMaxHealth()), self.scale, "HEALTH: " .. health)
 
 		self:DrawBg(x, by, self.pad, bh, self.healthBarColor)
+
+		-- draw armor information
+		local armor = tgt:AS_GetArmor()
+
+		if not GetGlobalBool("ttt_armor_classic", false) and armor > 0 then
+			local icon_mat = tgt:AS_ArmorIsReinforced() and icon_armor_rei or icon_armor
+
+			local a_size = bh - math.Round(16 * self.scale)
+			local a_pad = math.Round(10 * self.scale)
+
+			local a_pos_y = by + math.Round(8 * self.scale)
+			local a_pos_x = bx + bw - math.Round(45 * self.scale) - 2 * a_pad
+
+			local at_pos_y = by + 0.5 * bh
+			local at_pos_x = a_pos_x + a_size + a_pad + 1
+
+			draw.FilteredTexture(a_pos_x, a_pos_y, a_size, a_size, icon_mat)
+
+			draw.AdvancedText(armor, "OctagonalBar", at_pos_x, at_pos_y, util.GetDefaultColor(self.healthBarColor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
+		end
 
 		-- Draw ammo
 		local clip, clip_max, ammo = tgt:AS_GetWeapon()

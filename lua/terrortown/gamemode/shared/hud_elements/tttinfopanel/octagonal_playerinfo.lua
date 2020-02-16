@@ -206,7 +206,7 @@ if CLIENT then
 			local armor = math.max(0, client:GetArmor())
 
 			self:DrawBg(nx - self.pad, ty, self.pad, bh, self.healthBarColor)
-			self:DrawBar(nx, ty, bw, bh, self.healthBarColor, health / client:GetMaxHealth(), self.scale, "HEALTH: " .. health, self.pad)
+			self:DrawBar(nx, ty, bw, bh, self.healthBarColor, health / client:GetMaxHealth(), self.scale, string.upper(L["hud_health"]) .. ": " .. health, self.pad)
 
 			-- draw armor information
 			if not GetGlobalBool("ttt_armor_classic", false) and armor > 0 then

@@ -111,7 +111,7 @@ if CLIENT then -- CLIENT
 		local size = self:GetSize()
 		local x, y = pos.x, pos.y
 		local w, h = size.w, size.h
-		local fontColor = util.GetDefaultFontColor(self.basecolor)
+		local fontColor = util.GetDefaultColor(self.basecolor)
 
 		-- draw bg
 		self:DrawBg(x, y, w, h, self.basecolor)

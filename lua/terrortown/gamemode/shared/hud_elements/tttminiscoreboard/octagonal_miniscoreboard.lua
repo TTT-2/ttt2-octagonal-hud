@@ -44,7 +44,7 @@ if CLIENT then
 		hudelements.RegisterChildRelation(self.id, "octagonal_roundinfo", false)
 
 		-- resort miniscoreboard if body_found is changed
-		TTT2NET:OnUpdate("players", function(oldval, newval, reversePath)
+		ttt2net.OnUpdate("players", function(oldval, newval, reversePath)
 			if not refreshPaths[reversePath[2]] then return end
 
 			-- sort playerlist: confirmed players should be in the first position

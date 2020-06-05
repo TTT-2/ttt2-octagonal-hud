@@ -118,8 +118,7 @@ if CLIENT then -- CLIENT
 		local x, y = pos.x, pos.y
 		local w, h = size.w, size.h
 		local supersheep = client.supersheep
-		local fontColor = self:GetDefaultFontColor(self.basecolor)
-
+		local fontColor = util.GetDefaultColor(self.basecolor)
 
 		-- draw bg
 		self:DrawBg(x, y, w, h, self.basecolor)
@@ -132,6 +131,5 @@ if CLIENT then -- CLIENT
 
 		--drawing the interpolation bar
 		self:DrawBg(x, y, self.pad, h, self.darkOverlayColor)
-
 	end
 end

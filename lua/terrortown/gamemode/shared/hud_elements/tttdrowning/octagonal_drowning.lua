@@ -19,7 +19,7 @@ if CLIENT then
 
 	-- parameter overwrites
 	function HUDELEMENT:IsResizable()
-		return true, false
+		return true, true
 	end
 	-- parameter overwrites end
 

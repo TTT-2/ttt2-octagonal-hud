@@ -26,7 +26,7 @@ if CLIENT then
 	}
 
 	function HUDELEMENT:PreInitialize()
-		self.drawer = hudelements.GetStored("pure_skin_element")
+		self.drawer = hudelements.GetStored("octagonal_element")
 	end
 
 	function HUDELEMENT:Initialize()

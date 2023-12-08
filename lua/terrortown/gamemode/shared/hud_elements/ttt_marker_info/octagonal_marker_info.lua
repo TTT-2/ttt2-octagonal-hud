@@ -18,18 +18,6 @@ if CLIENT then -- CLIENT
 	HUDELEMENT.marker_icon = Material("vgui/ttt/hud_icon_marked.png")
 	HUDELEMENT.marker_icon_end = Material("vgui/ttt/hud_icon_marked_end.png")
 
-	function HUDELEMENT:PreInitialize()
-		BaseClass.PreInitialize(self)
-
-		local hud = huds.GetStored("octagonal")
-		if hud then
-			hud:ForceElement(self.id)
-		end
-
-		-- set as NOT fallback default
-		self.disabledUnlessForced = true
-	end
-
 	function HUDELEMENT:Initialize()
 		self.scale = 1.0
 		self.basecolor = self:GetHUDBasecolor()

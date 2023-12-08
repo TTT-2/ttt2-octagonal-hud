@@ -6,11 +6,6 @@ HUDELEMENT.Base = base
 HUDELEMENT.icon = Material("vgui/ttt/icon_identity_disguised_hud")
 
 if CLIENT then -- CLIENT
-
-	function HUDELEMENT:PreInitialize()
-		BaseClass.PreInitialize(self)
-	end
-
 	-- parameter overwrites
 	function HUDELEMENT:IsResizable()
 		return true, true

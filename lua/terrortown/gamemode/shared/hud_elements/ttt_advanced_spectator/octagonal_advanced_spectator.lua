@@ -18,18 +18,6 @@ if CLIENT then -- CLIENT
 	local icon_armor = Material("vgui/ttt/hud_armor")
 	local icon_armor_rei = Material("vgui/ttt/hud_armor_reinforced")
 
-	function HUDELEMENT:PreInitialize()
-		BaseClass.PreInitialize(self)
-
-		local hud = huds.GetStored("octagonal")
-		if hud then
-			hud:ForceElement(self.id)
-		end
-
-		-- set as NOT fallback default
-		self.disabledUnlessForced = true
-	end
-
 	function HUDELEMENT:Initialize()
 		self.scale = 1.0
 		self.basecolor = self:GetHUDBasecolor()

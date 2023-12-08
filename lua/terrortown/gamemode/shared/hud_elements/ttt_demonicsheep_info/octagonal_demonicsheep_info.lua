@@ -26,18 +26,6 @@ if CLIENT then -- CLIENT
 		minsize = {w = 340, h = 2 * barHeight + 3 * pad}
 	}
 
-	function HUDELEMENT:PreInitialize()
-		BaseClass.PreInitialize(self)
-
-		local hud = huds.GetStored("octagonal")
-		if hud then
-			hud:ForceElement(self.id)
-		end
-
-		-- set as fallback default? (false) Other skins have to be set to true!
-		self.disabledUnlessForced = true
-	end
-
 	function HUDELEMENT:Initialize()
 		self.scale = 1.0
 		self.basecolor = self:GetHUDBasecolor()

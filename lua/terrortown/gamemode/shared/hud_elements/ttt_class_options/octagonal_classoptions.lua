@@ -18,18 +18,6 @@ if CLIENT then
 		minsize = {w = 130, h = 40}
 	}
 
-	function HUDELEMENT:PreInitialize()
-		BaseClass.PreInitialize(self)
-
-		local hud = huds.GetStored("octagonal")
-		if hud then
-			hud:ForceElement(self.id)
-		end
-
-		-- set as NOT fallback default
-		self.disabledUnlessForced = true
-	end
-
 	function HUDELEMENT:Initialize()
 		self.scale = 1.0
 		self.optionMargin = optionMargin

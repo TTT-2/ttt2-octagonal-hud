@@ -22,8 +22,6 @@ if CLIENT then
 		self.basecolor = self:GetHUDBasecolor()
 		self.pad_roundinfo = pad_roundinfo
 
-		self.disabledUnlessForced = true
-
 		BaseClass.Initialize(self)
 	end
 

@@ -16,19 +16,6 @@ if CLIENT then -- CLIENT
 	local barFont = "OctagonalBar"
 	local gap = 5
 
-	function HUDELEMENT:PreInitialize()
-		print("demPosInfoOctagonal")
-		BaseClass.PreInitialize(self)
-
-		local hud = huds.GetStored("octagonal")
-		if hud then
-			hud:ForceElement(self.id)
-		end
-
-		-- set as NOT fallback default
-		self.disabledUnlessForced = true
-	end
-
 	function HUDELEMENT:Initialize()
 		self.scale = 1.0
 		self.basecolor = self:GetHUDBasecolor()

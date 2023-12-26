@@ -12,6 +12,14 @@ if CLIENT then
 	local row = 40
 	local gap = 5
 
+	local icon_health = Material("vgui/ttt/hud_health.vmt")
+	local icon_health_low = Material("vgui/ttt/hud_health_low.vmt")
+
+	local icon_armor = Material("vgui/ttt/hud_armor.vmt")
+	local icon_armor_rei = Material("vgui/ttt/hud_armor_reinforced.vmt")
+
+	local mat_tid_ammo = Material("vgui/ttt/tid/tid_ammo")
+
 	local const_defaults = {
 		basepos = {x = 0, y = 0},
 		size = {w = 365, h = 145},
@@ -63,8 +71,9 @@ if CLIENT then
 		local ammo_inv = weap.Ammo1 and weap:Ammo1() or 0
 		local ammo_clip = weap:Clip1() or 0
 		local ammo_max = weap.Primary.ClipSize or 0
+		local ammo_type = weap.Primary.Ammo
 
-		return ammo_clip, ammo_max, ammo_inv
+		return ammo_clip, ammo_max, ammo_inv, ammo_type
 	end
 
 	--[[
@@ -204,22 +213,33 @@ if CLIENT then
 			-- health bar
 			local health = math.max(0, client:Health())
 			local armor = math.max(0, client:GetArmor())
+			local health_icon = icon_health
+
+			if health <= client:GetMaxHealth() * 0.25 and self.healthPulsate then
+				health_icon = icon_health_low
+			end
 
 			self:DrawBg(nx - self.pad, ty, self.pad, bh, self.healthBarColor)
-			self:DrawBar(nx, ty, bw, bh, self.healthBarColor, health / client:GetMaxHealth(), self.scale, string.upper(L["hud_health"]) .. ": " .. health, self.pad)
+			self:DrawBar(nx, ty, bw, bh, self.healthBarColor, health / client:GetMaxHealth(), self.scale, nil, self.pad)
+
+			local a_size = bh - math.Round(16 * self.scale)
+			local a_pad = math.Round(10 * self.scale)
+
+			local a_pos_y = ty + math.Round(8 * self.scale)
+			local a_pos_x = nx + (a_size / 2)
+
+			local at_pos_y = ty + 0.5 * bh
+			local at_pos_x = a_pos_x + a_size + a_pad
+
+			draw.FilteredTexture(a_pos_x, a_pos_y, a_size, a_size, health_icon, 255, util.GetDefaultColor(self.healthBarColor), self.scale)
+			draw.AdvancedText(health, "OctagonalBar", at_pos_x, at_pos_y, util.GetDefaultColor(self.healthBarColor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
 
 			-- draw armor information
 			if not GetGlobalBool("ttt_armor_classic", false) and armor > 0 then
 				local icon_mat = client:ArmorIsReinforced() and icon_armor_rei or icon_armor
 
-				local a_size = bh - math.Round(16 * self.scale)
-				local a_pad = math.Round(10 * self.scale)
-
-				local a_pos_y = ty + math.Round(8 * self.scale)
-				local a_pos_x = nx + bw - math.Round(45 * self.scale) - 2 * a_pad
-
-				local at_pos_y = ty + 0.5 * bh
-				local at_pos_x = a_pos_x + a_size + a_pad + 1
+				a_pos_x = nx + bw - math.Round(65 * self.scale)
+				at_pos_x = a_pos_x + a_size + a_pad
 
 				draw.FilteredTexture(a_pos_x, a_pos_y, a_size, a_size, icon_mat)
 
@@ -228,16 +248,33 @@ if CLIENT then
 
 			-- ammo bar
 			ty = ty + bh
+			a_pos_y = ty + a_pad
 
 			-- Draw ammo
 			if client:GetActiveWeapon().Primary then
-				local ammo_clip, ammo_max, ammo_inv = self:GetAmmo(client)
+				local ammo_clip, ammo_max, ammo_inv, ammo_type = self:GetAmmo(client)
 
 				if ammo_clip ~= -1 then
 					local text = string.format("%i + %02i", ammo_clip, ammo_inv)
 
 					self:DrawBg(nx - self.pad, ty, self.pad, bh, self.ammoBarColor)
 					self:DrawBar(nx, ty, bw, bh, self.ammoBarColor, ammo_clip / ammo_max, self.scale, text, self.pad)
+				end
+
+				if ammo_clip ~= -1 then
+					local text = string.format("%i + %02i", ammo_clip, ammo_inv)
+
+					self:DrawBg(nx - self.pad, ty, self.pad, bh, self.ammoBarColor)
+					self:DrawBar(nx, ty, bw, bh, self.ammoBarColor, ammo_clip / ammo_max, self.scale, nil, self.pad)
+
+					local icon_mat = BaseClass.BulletIcons[ammo_type] or mat_tid_ammo
+
+					a_pos_x = nx + (a_size / 2)
+					at_pos_y = ty + 0.5 * bh
+					at_pos_x = a_pos_x + a_size + a_pad
+
+					draw.FilteredTexture(a_pos_x, a_pos_y, a_size, a_size, icon_mat, 255, util.GetDefaultColor(self.ammoBarColor), self.scale)
+					draw.AdvancedText(text, "OctagonalBar", at_pos_x, at_pos_y, util.GetDefaultColor(self.ammoBarColor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
 				end
 			end
 

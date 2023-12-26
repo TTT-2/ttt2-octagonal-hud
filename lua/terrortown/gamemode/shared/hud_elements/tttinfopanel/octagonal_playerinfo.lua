@@ -12,11 +12,13 @@ if CLIENT then
 	local row = 40
 	local gap = 5
 
-	local icon_health = Material("vgui/ttt/hud_health.vmt")
-	local icon_health_low = Material("vgui/ttt/hud_health_low.vmt")
+	local watching_icon = Material("vgui/ttt/watching_icon")
 
 	local icon_armor = Material("vgui/ttt/hud_armor.vmt")
 	local icon_armor_rei = Material("vgui/ttt/hud_armor_reinforced.vmt")
+
+	local icon_health = Material("vgui/ttt/hud_health.vmt")
+	local icon_health_low = Material("vgui/ttt/hud_health_low.vmt")
 
 	local mat_tid_ammo = Material("vgui/ttt/tid/tid_ammo")
 
@@ -85,11 +87,6 @@ if CLIENT then
 			self.secondaryRoleInformationFunc = func
 		end
 	end
-
-	local watching_icon = Material("vgui/ttt/watching_icon")
-
-	local icon_armor = Material("vgui/ttt/hud_armor.vmt")
-	local icon_armor_rei = Material("vgui/ttt/hud_armor_reinforced.vmt")
 
 	function HUDELEMENT:Draw()
 		local client = LocalPlayer()
@@ -215,7 +212,7 @@ if CLIENT then
 			local armor = math.max(0, client:GetArmor())
 			local health_icon = icon_health
 
-			if health <= client:GetMaxHealth() * 0.25 and self.healthPulsate then
+			if health <= client:GetMaxHealth() * 0.25 then
 				health_icon = icon_health_low
 			end
 

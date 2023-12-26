@@ -45,7 +45,7 @@ if CLIENT then -- CLIENT
 	end
 
 	function HUDELEMENT:ShouldDraw()
-		return KILLER_INFO.data.render or HUDEditor.IsEditing
+		return KILLER_INFO and (KILLER_INFO.data.render or HUDEditor.IsEditing)
 	end
 	-- parameter overwrites end
 

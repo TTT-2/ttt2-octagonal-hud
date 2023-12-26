@@ -15,8 +15,13 @@ if CLIENT then -- CLIENT
 	local row = 40
 	local gap = 5
 
-	local icon_armor = Material("vgui/ttt/hud_armor")
-	local icon_armor_rei = Material("vgui/ttt/hud_armor_reinforced")
+	local icon_armor = Material("vgui/ttt/hud_armor.vmt")
+	local icon_armor_rei = Material("vgui/ttt/hud_armor_reinforced.vmt")
+
+	local icon_health = Material("vgui/ttt/hud_health.vmt")
+	local icon_health_low = Material("vgui/ttt/hud_health_low.vmt")
+
+	local mat_tid_ammo = Material("vgui/ttt/tid/tid_ammo")
 
 	function HUDELEMENT:Initialize()
 		self.scale = 1.0
@@ -114,10 +119,26 @@ if CLIENT then -- CLIENT
 
 		-- health bar
 		local health = math.max(0, tgt:Health())
+		local health_icon = icon_health
 
-		self:DrawBar(bx, by, bw, bh, self.healthBarColor, health / math.max(0, tgt:GetMaxHealth()), self.scale, string.upper(LANG.GetTranslation("hud_health")) .. ": " .. health)
+		if health <= health * 0.25 then
+			health_icon = icon_health_low
+		end
 
+		local a_size = bh - math.Round(16 * self.scale)
+		local a_pad = math.Round(10 * self.scale)
+
+		local a_pos_y = by + math.Round(8 * self.scale)
+		local a_pos_x = bx + (a_size / 2)
+
+		local at_pos_y = by + 0.5 * bh
+		local at_pos_x = a_pos_x + a_size + a_pad
+
+		self:DrawBar(bx, by, bw, bh, self.healthBarColor, health / math.max(0, tgt:GetMaxHealth()), self.scale)
 		self:DrawBg(x, by, self.pad, bh, self.healthBarColor)
+
+		draw.FilteredTexture(a_pos_x, a_pos_y, a_size, a_size, health_icon, 255, util.GetDefaultColor(self.healthBarColor), self.scale)
+		draw.AdvancedText(health, "OctagonalBar", at_pos_x, at_pos_y, util.GetDefaultColor(self.healthBarColor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
 
 		-- draw armor information
 		local armor = tgt:AS_GetArmor()
@@ -125,14 +146,8 @@ if CLIENT then -- CLIENT
 		if not GetGlobalBool("ttt_armor_classic", false) and armor > 0 then
 			local icon_mat = tgt:AS_ArmorIsReinforced() and icon_armor_rei or icon_armor
 
-			local a_size = bh - math.Round(16 * self.scale)
-			local a_pad = math.Round(10 * self.scale)
-
-			local a_pos_y = by + math.Round(8 * self.scale)
-			local a_pos_x = bx + bw - math.Round(45 * self.scale) - 2 * a_pad
-
-			local at_pos_y = by + 0.5 * bh
-			local at_pos_x = a_pos_x + a_size + a_pad + 1
+			a_pos_x = bx + bw - math.Round(45 * self.scale) - 2 * a_pad
+			at_pos_x = a_pos_x + a_size + a_pad + 1
 
 			draw.FilteredTexture(a_pos_x, a_pos_y, a_size, a_size, icon_mat)
 
@@ -145,9 +160,17 @@ if CLIENT then -- CLIENT
 		if clip ~= -1 then
 			local text = string.format("%i + %02i", clip, ammo)
 
-			self:DrawBar(bx, by + bh, bw, bh, self.ammoBarColor, clip / clip_max, self.scale, text)
-
+			self:DrawBar(bx, by + bh, bw, bh, self.ammoBarColor, clip / clip_max, self.scale)
 			self:DrawBg(x, by + bh, self.pad, bh, self.ammoBarColor)
+
+			local icon_mat = BaseClass.BulletIcons[ammo_type] or mat_tid_ammo
+
+			a_pos_x = bx + (a_size / 2)
+			at_pos_y = by + 0.5 * bh
+			at_pos_x = a_pos_x + a_size + a_pad
+
+			draw.FilteredTexture(a_pos_x, a_pos_y, a_size, a_size, icon_mat, 255, util.GetDefaultColor(self.ammoBarColor), self.scale)
+			draw.AdvancedText(text, "OctagonalBar", at_pos_x, at_pos_y, util.GetDefaultColor(self.ammoBarColor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
 		end
 
 		self:DrawBg(x, y, self.pad, h, self.darkOverlayColor)

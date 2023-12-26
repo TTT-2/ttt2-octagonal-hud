@@ -41,7 +41,7 @@ if CLIENT then -- CLIENT
 
 	-- parameter overwrites
 	function HUDELEMENT:IsResizable()
-		return true, true
+		return true, false
 	end
 
 	function HUDELEMENT:ShouldDraw()
@@ -86,7 +86,7 @@ if CLIENT then -- CLIENT
 
 		if icon then
 			bx, ibx = ibx, bx
-			draw.FilteredTexture(ibx, iby, icon_size, icon_size, icon)
+			draw.FilteredShadowedTexture(ibx, iby, icon_size, icon_size, icon)
 		end
 		draw.AdvancedText(str, "OctagonalBar", bx, by, util.GetDefaultColor(self.basecolor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false , self.scale)
 

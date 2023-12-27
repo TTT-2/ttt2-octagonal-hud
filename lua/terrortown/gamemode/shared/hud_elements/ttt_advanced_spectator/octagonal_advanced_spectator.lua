@@ -155,7 +155,8 @@ if CLIENT then -- CLIENT
 		end
 
 		-- Draw ammo
-		local clip, clip_max, ammo = tgt:AS_GetWeapon()
+		local clip, clip_max, ammo, ammo_type = tgt:AS_GetWeapon()
+		ammo_type = string.lower(game.GetAmmoTypes()[ammo_type])
 
 		if clip ~= -1 then
 			local text = string.format("%i + %02i", clip, ammo)
@@ -169,8 +170,8 @@ if CLIENT then -- CLIENT
 			at_pos_y = by + 0.5 * bh
 			at_pos_x = a_pos_x + a_size + a_pad
 
-			draw.FilteredTexture(a_pos_x, a_pos_y, a_size, a_size, icon_mat, 255, util.GetDefaultColor(self.ammoBarColor), self.scale)
-			draw.AdvancedText(text, "OctagonalBar", at_pos_x, at_pos_y, util.GetDefaultColor(self.ammoBarColor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
+			draw.FilteredTexture(a_pos_x, a_pos_y + bh, a_size, a_size, icon_mat, 255, util.GetDefaultColor(self.ammoBarColor), self.scale)
+			draw.AdvancedText(text, "OctagonalBar", at_pos_x, at_pos_y + bh, util.GetDefaultColor(self.ammoBarColor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
 		end
 
 		self:DrawBg(x, y, self.pad, h, self.darkOverlayColor)

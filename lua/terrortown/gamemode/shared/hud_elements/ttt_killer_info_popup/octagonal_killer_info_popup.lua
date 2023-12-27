@@ -150,6 +150,7 @@ if CLIENT then -- CLIENT
 
 			if KILLER_INFO.data.killer_weapon_clip >= 0 then
 				local ammo_count = string.format("%i + %02i", KILLER_INFO.data.killer_weapon_clip, KILLER_INFO.data.killer_weapon_ammo)
+				local ammo_type = string.lower( game.GetAmmoTypes()[KILLER_INFO.data.killer_weapon_ammo_type] )
 				local icon_mat = BaseClass.BulletIcons[ammo_type] or mat_tid_ammo
 
 				y, lbh = self:BarText(x, math.Round(y), w, lbh, ammo_count, KILLER_INFO.data.killer_weapon_clip / KILLER_INFO.data.killer_weapon_clip_max, self.ammoColor, icon_mat, icon_size / 2)

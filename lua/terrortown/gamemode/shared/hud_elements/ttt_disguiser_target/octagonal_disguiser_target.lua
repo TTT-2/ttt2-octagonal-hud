@@ -17,9 +17,9 @@ if CLIENT then -- CLIENT
 
 		if HUDEditor.IsEditing then
 			self:DrawComponent("- Disguiser Target -")
-		elseif client:IsActive() and client:HasStoredDisguiserTarget() then
+		elseif client:IsActive() and client.HasStoredDisguiserTarget and client:HasStoredDisguiserTarget() then
 			local playerNick = {
-				name = client:GetStoredDisguiserTarget():Nick()
+				name = client:GetStoredDisguiserTarget():Nick(),
 			}
 
 			if client:HasDisguiserTarget() then

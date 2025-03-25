@@ -23,9 +23,9 @@ if CLIENT then
 	local mat_tid_ammo = Material("vgui/ttt/tid/tid_ammo")
 
 	local const_defaults = {
-		basepos = {x = 0, y = 0},
-		size = {w = 365, h = 145},
-		minsize = {w = 225, h = 145}
+		basepos = { x = 0, y = 0 },
+		size = { w = 365, h = 145 },
+		minsize = { w = 225, h = 145 },
 	}
 
 	function HUDELEMENT:Initialize()
@@ -44,7 +44,7 @@ if CLIENT then
 	-- parameter overwrites end
 
 	function HUDELEMENT:GetDefaults()
-		const_defaults["basepos"] = {x = 10 * self.scale, y = ScrH() - (10 * self.scale + self.size.h)}
+		const_defaults["basepos"] = { x = 10 * self.scale, y = ScrH() - (10 * self.scale + self.size.h) }
 
 		return const_defaults
 	end
@@ -67,7 +67,7 @@ if CLIENT then
 		local weap = ply:GetActiveWeapon()
 
 		if not weap or not ply:Alive() then
-			return - 1
+			return -1
 		end
 
 		local ammo_inv = weap.Ammo1 and weap:Ammo1() or 0
@@ -81,7 +81,8 @@ if CLIENT then
 	--[[
 		This function expects to receive a function as a parameter which later returns a table with the following keys: { text: "", color: Color }
 		The function should also take care of managing the visibility by returning nil to tell the UI that nothing should be displayed
-	]]--
+	]]
+	--
 	function HUDELEMENT:SetSecondaryRoleInfoFunction(func)
 		if func and isfunction(func) then
 			self.secondaryRoleInformationFunc = func
@@ -127,10 +128,28 @@ if CLIENT then
 
 			if cactive then
 				if rd.iconMaterial then
-					draw.FilteredShadowedTexture(x2 + self.pad * 2, y2 + 0.5 * (self.firstrow - self.row + 8), self.row - 8, self.row - 8, rd.iconMaterial, 255, util.GetDefaultColor(c), self.scale)
+					draw.FilteredShadowedTexture(
+						x2 + self.pad * 2,
+						y2 + 0.5 * (self.firstrow - self.row + 8),
+						self.row - 8,
+						self.row - 8,
+						rd.iconMaterial,
+						255,
+						util.GetDefaultColor(c),
+						self.scale
+					)
 				end
 			elseif IsValid(tgt) and tgt:IsPlayer() then
-				draw.FilteredShadowedTexture(x2 + self.pad * 2, y2 + 0.5 * (self.firstrow - self.row + 8), self.row - 8, self.row - 8, watching_icon, 255, util.GetDefaultColor(c), self.scale)
+				draw.FilteredShadowedTexture(
+					x2 + self.pad * 2,
+					y2 + 0.5 * (self.firstrow - self.row + 8),
+					self.row - 8,
+					self.row - 8,
+					watching_icon,
+					255,
+					util.GetDefaultColor(c),
+					self.scale
+				)
 			end
 
 			-- draw role string name
@@ -175,12 +194,21 @@ if CLIENT then
 				tx = nx + self.pad
 			end
 
-			draw.AdvancedText(string.upper(text), "OctagonalRole", tx, ry, util.GetDefaultColor(c), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, role_scale_multiplier)
+			draw.AdvancedText(
+				string.upper(text),
+				"OctagonalRole",
+				tx,
+				ry,
+				util.GetDefaultColor(c),
+				TEXT_ALIGN_LEFT,
+				TEXT_ALIGN_CENTER,
+				false,
+				role_scale_multiplier
+			)
 		end
 
 		-- player informations
 		if calive then
-
 			-- draw secondary role information
 			if cactive and isfunction(self.secondaryRoleInformationFunc) then
 				local secInfoTbl = self.secondaryRoleInformationFunc()
@@ -195,16 +223,31 @@ if CLIENT then
 
 					local nx2 = x2 + sri_xoffset
 
-					local mixColor = Color((secInfoTbl.color.r + c.r) * 0.5, (secInfoTbl.color.g + c.g) * 0.5, (secInfoTbl.color.b + c.b) * 0.5, (secInfoTbl.color.a + c.a) * 0.5)
+					local mixColor = Color(
+						(secInfoTbl.color.r + c.r) * 0.5,
+						(secInfoTbl.color.g + c.g) * 0.5,
+						(secInfoTbl.color.b + c.b) * 0.5,
+						(secInfoTbl.color.a + c.a) * 0.5
+					)
 					self:DrawBg(nx2 - self.pad, y2, self.pad, self.firstrow, mixColor)
 
-					self:DrawBar(nx2, y2, sri_width, self.firstrow, secInfoTbl.color, 1, self.scale, sri_text_caps, self.pad)
+					self:DrawBar(
+						nx2,
+						y2,
+						sri_width,
+						self.firstrow,
+						secInfoTbl.color,
+						1,
+						self.scale,
+						sri_text_caps,
+						self.pad
+					)
 				end
 			end
 
 			-- draw bars
 			local bw = w2 - self.pad -- bar width
-			local bh = self.row--  bar height
+			local bh = self.row --  bar height
 			local sbh = self.pad -- spring bar height
 
 			-- health bar
@@ -228,8 +271,27 @@ if CLIENT then
 			local at_pos_y = ty + 0.5 * bh
 			local at_pos_x = a_pos_x + a_size + a_pad
 
-			draw.FilteredTexture(a_pos_x, a_pos_y, a_size, a_size, health_icon, 255, util.GetDefaultColor(self.healthBarColor), self.scale)
-			draw.AdvancedText(health, "OctagonalBar", at_pos_x, at_pos_y, util.GetDefaultColor(self.healthBarColor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
+			draw.FilteredTexture(
+				a_pos_x,
+				a_pos_y,
+				a_size,
+				a_size,
+				health_icon,
+				255,
+				util.GetDefaultColor(self.healthBarColor),
+				self.scale
+			)
+			draw.AdvancedText(
+				health,
+				"OctagonalBar",
+				at_pos_x,
+				at_pos_y,
+				util.GetDefaultColor(self.healthBarColor),
+				TEXT_ALIGN_LEFT,
+				TEXT_ALIGN_CENTER,
+				false,
+				self.scale
+			)
 
 			-- draw armor information
 			if not GetGlobalBool("ttt_armor_classic", false) and armor > 0 then
@@ -240,7 +302,17 @@ if CLIENT then
 
 				draw.FilteredTexture(a_pos_x, a_pos_y, a_size, a_size, icon_mat)
 
-				draw.AdvancedText(armor, "OctagonalBar", at_pos_x, at_pos_y, util.GetDefaultColor(Color(234, 41, 41)), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
+				draw.AdvancedText(
+					armor,
+					"OctagonalBar",
+					at_pos_x,
+					at_pos_y,
+					util.GetDefaultColor(Color(234, 41, 41)),
+					TEXT_ALIGN_LEFT,
+					TEXT_ALIGN_CENTER,
+					false,
+					self.scale
+				)
 			end
 
 			-- ammo bar
@@ -270,8 +342,27 @@ if CLIENT then
 					at_pos_y = ty + 0.5 * bh
 					at_pos_x = a_pos_x + a_size + a_pad
 
-					draw.FilteredTexture(a_pos_x, a_pos_y, a_size, a_size, icon_mat, 255, util.GetDefaultColor(self.ammoBarColor), self.scale)
-					draw.AdvancedText(text, "OctagonalBar", at_pos_x, at_pos_y, util.GetDefaultColor(self.ammoBarColor), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, false, self.scale)
+					draw.FilteredTexture(
+						a_pos_x,
+						a_pos_y,
+						a_size,
+						a_size,
+						icon_mat,
+						255,
+						util.GetDefaultColor(self.ammoBarColor),
+						self.scale
+					)
+					draw.AdvancedText(
+						text,
+						"OctagonalBar",
+						at_pos_x,
+						at_pos_y,
+						util.GetDefaultColor(self.ammoBarColor),
+						TEXT_ALIGN_LEFT,
+						TEXT_ALIGN_CENTER,
+						false,
+						self.scale
+					)
 				end
 			end
 
@@ -280,7 +371,7 @@ if CLIENT then
 
 			if GetGlobalBool("ttt2_sprint_enabled", true) then
 				self:DrawBg(nx - self.pad, ty, self.pad, sbh, self.extraBarColor)
-				self:DrawBar(nx, ty, bw, sbh, self.extraBarColor, client.sprintProgress, self.scale, "")
+				self:DrawBar(nx, ty, bw, sbh, self.extraBarColor, client:GetSprintStamina(), self.scale, "")
 			end
 		end
 		self:DrawBg(x2, y2, self.pad, h2, self.darkOverlayColor)

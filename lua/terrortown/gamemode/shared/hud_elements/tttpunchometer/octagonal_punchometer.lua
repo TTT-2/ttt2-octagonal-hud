@@ -16,9 +16,9 @@ if CLIENT then
 	local margin = 14
 
 	local const_defaults = {
-		basepos = {x = 0, y = 0},
-		size = {w = 200, h = 40},
-		minsize = {w = 100, h = 40}
+		basepos = { x = 0, y = 0 },
+		size = { w = 200, h = 40 },
+		minsize = { w = 100, h = 40 },
 	}
 
 	function HUDELEMENT:Initialize()
@@ -37,7 +37,7 @@ if CLIENT then
 	-- parameter overwrites end
 
 	function HUDELEMENT:GetDefaults()
-		const_defaults["basepos"] = {x = ScrW() * 0.5 - self.size.w * 0.5, y = self.margin + 72 * self.scale}
+		const_defaults["basepos"] = { x = ScrW() * 0.5 - self.size.w * 0.5, y = self.margin + 72 * self.scale }
 
 		return const_defaults
 	end
@@ -55,19 +55,27 @@ if CLIENT then
 		self:DrawBg(x, y, w, h, self.basecolor)
 		self:DrawBar(x, y, w, h, draw_col, punch, self.scale, L.punch_title, -1)
 
-		draw.AdvancedText(L.punch_help, "TabLarge", x + w * 0.5, y - 10, util.GetDefaultColor(self.basecolor), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, true, self.scale)
-
 		local bonus = client:GetNWInt("bonuspunches", 0)
 		if bonus ~= 0 then
 			local text
 
 			if bonus < 0 then
-				text = interp(L.punch_bonus, {num = bonus})
+				text = interp(L.punch_bonus, { num = bonus })
 			else
-				text = interp(L.punch_malus, {num = bonus})
+				text = interp(L.punch_malus, { num = bonus })
 			end
 
-			draw.AdvancedText(text, "TabLarge", x + w * 0.5, y + self.margin * 2 + 20, util.GetDefaultColor(self.basecolor), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, true, self.scale)
+			draw.AdvancedText(
+				text,
+				"TabLarge",
+				x + w * 0.5,
+				y + self.margin * 2 + 20,
+				util.GetDefaultColor(self.basecolor),
+				TEXT_ALIGN_CENTER,
+				TEXT_ALIGN_CENTER,
+				true,
+				self.scale
+			)
 		end
 	end
 
@@ -79,7 +87,7 @@ if CLIENT then
 		BaseClass.PerformLayout(self)
 	end
 
-	local key_params = {usekey = Key("+use", "USE"), helpkey = Key("gm_showhelp", "F1")}
+	local key_params = { usekey = Key("+use", "USE"), helpkey = Key("gm_showhelp", "F1") }
 
 	function HUDELEMENT:ShouldDraw()
 		local client = LocalPlayer()
@@ -100,11 +108,6 @@ if CLIENT then
 
 		if IsValid(tgt) and not tgt:IsPlayer() and tgt:GetNWEntity("spec_owner", nil) == client then
 			self:PunchPaint() -- punch bar if you are spectator and inside of an entity
-		else
-			draw.AdvancedText(interp(L.spec_help, key_params), "TabLarge", x + self.size.w * 0.5, y, COLOR_WHITE, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, true, self.scale)
-			if GetConVar("ttt_spectator_mode"):GetBool() then
-				draw.AdvancedText(interp(L.spec_help2, key_params), "TabLarge", x + self.size.w * 0.5, y + 20, COLOR_WHITE, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, true, self.scale)
-			end
 		end
 	end
 end
